@@ -1,0 +1,59 @@
+<idea-plugin>
+
+    <!-- Unique id for this plugin. Must stay constant for the life of the plugin. -->
+    <id>com.nazarov</id>
+
+    <!-- Text to display as name on Settings | Plugin page -->
+    <name>Url player</name>
+
+    <!-- Product and plugin compatibility requirements -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Text to display as description on Settings | Plugin page -->
+    <description>
+        <![CDATA[
+      Playing selected urls
+      to see hints in the lower left corner of the IDE.
+    ]]>
+    </description>
+    <change-notes>
+        <![CDATA[
+      <ul>
+        <li><b>2.0.0</b> Convert to Gradle-based plugin</li>
+      </ul>
+    ]]>
+    </change-notes>
+
+    <!-- Text to display as company information on Settings | Plugin page -->
+    <vendor url="https://plugins.jetbrains.com">IntelliJ Platform SDK</vendor>
+
+    <actions>
+        <action
+                class="com.nazarov.action.ViewAction"
+                text="View in browser"
+                description="Open selected url in browser"
+                icon="SdkIcons.Sdk_browser_icon">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <action
+                class="com.nazarov.action.StopAction"
+                text="Stop"
+                description="Stop playing"
+                icon="SdkIcons.Sdk_pause_icon">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <action id="EditorBasics.EditorIllustrationAction"
+                class="com.nazarov.action.PlayAction"
+                text="Play"
+                description="Playing selected url"
+                icon="SdkIcons.Sdk_play_icon">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+
+    </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="Rad.Man." secondary="true" icon="SdkIcons.Sdk_headphones_icon" anchor="bottom"
+                    factoryClass="com.nazarov.RadMan"/>
+    </extensions>
+</idea-plugin>
