@@ -52,7 +52,7 @@ public class RadMan implements ToolWindowFactory, DumbAware {
         @NotNull
         private JPanel createPanel(ToolWindow toolWindow) {
             JLabel label = new JLabel();
-            label.setText("Find stations in Radio Browser: ");
+            label.setText("Find stations in https://www.radio-browser.info/: ");
 
             findParameter.setMinimumSize(new Dimension(Integer.MAX_VALUE, 100));
 

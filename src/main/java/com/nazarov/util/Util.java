@@ -29,26 +29,19 @@ public class Util {
     }
 
     public static String getData(String findParameter, boolean url, boolean url_resolved, boolean name, boolean homepage,
-        boolean countrycode, boolean language, boolean codec, boolean bitrate, boolean votes) throws IOException {
-        String limit = "10";
+                                 boolean countrycode, boolean language, boolean codec, boolean bitrate, boolean votes) throws IOException {
+        //TODO: decide which limit is resonable, or how to switch it
+        String limit = "50";
         String prefix = "https://nl1.api.radio-browser.info/json/stations/search?limit=10&name=";
         String genre = findParameter;
         String urlString = prefix + genre + "&hidebroken=true&order=clickcount&reverse=true";
         String result = parseJson(urlString, url, url_resolved, name, homepage, countrycode, language, codec, bitrate, votes);
 
-//        WebClient client = WebClient.create();
-//        WebClient.ResponseSpec responseSpec = client.get()
-//                .uri(urlString)
-//                .retrieve();
-//        String responseBody = responseSpec.bodyToMono(String.class).block();
-
         return result;
     }
 
-
-
     public static String parseJson(String stringUrl, boolean urlb, boolean url_resolvedb, boolean nameb, boolean homepageb,
-             boolean countrycodeb, boolean languageb, boolean codecb, boolean bitrateb, boolean votesb) throws IOException {
+                                   boolean countrycodeb, boolean languageb, boolean codecb, boolean bitrateb, boolean votesb) throws IOException {
         List<String> resultList = new ArrayList<>();
         String fieldName = "Unknown";
         String spltr = " | ";
@@ -69,12 +62,8 @@ public class Util {
             if (JsonToken.FIELD_NAME.equals(jsonToken)) {
                 fieldName = parser.getCurrentName();
                 parser.nextToken();
-//TODO: переместить сплиттер вперед. Придумать гашение нулл.
-                if ("name".equals(fieldName)) {
-                    if (nameb) {
-                        name = parser.getValueAsString() + spltr;
-                    }
-                } else if ("url".equals(fieldName)) {
+
+                if ("url".equals(fieldName)) {
                     if (urlb) {
                         url = parser.getValueAsString() + spltr;
                     }
@@ -82,8 +71,12 @@ public class Util {
                     if (url_resolvedb) {
                         url = parser.getValueAsString() + spltr;
                     }
+                } else if ("name".equals(fieldName)) {
+                    if (nameb) {
+                        name = parser.getValueAsString() + spltr;
+                    }
                 } else if ("homepage".equals(fieldName)) {
-                    if(homepageb) {
+                    if (homepageb) {
                         homepage = parser.getValueAsString() + spltr;
                     }
                 } else if ("countrycode".equals(fieldName)) {
@@ -112,14 +105,27 @@ public class Util {
                 }
             }
         }
+        //TODO: make as link on the plugins panel
         resultList.add("http://all.api.radio-browser.info/  <-- All codes of radio-browser here.");
 
         StringBuilder sb = new StringBuilder();
-        for(String s : resultList) {
+        for (
+                String s : resultList) {
             sb.append(s + "\n");
         }
 
         return sb.toString();
+    }
+
+    private String webClient(String urlAsString) {
+
+        WebClient client = WebClient.create();
+        WebClient.ResponseSpec responseSpec = client.get()
+                .uri(urlAsString)
+                .retrieve();
+        String responseBody = responseSpec.bodyToMono(String.class).block();
+
+        return responseBody;
     }
 
 }
