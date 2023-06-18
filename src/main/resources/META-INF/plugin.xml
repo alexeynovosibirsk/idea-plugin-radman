@@ -1,10 +1,10 @@
 <idea-plugin>
 
     <!-- Unique id for this plugin. Must stay constant for the life of the plugin. -->
-    <id>com.nazarov</id>
+    <id>com.nazarov.radman</id>
 
     <!-- Text to display as name on Settings | Plugin page -->
-    <name>Url player</name>
+    <name>Rad.Man.</name>
 
     <!-- Product and plugin compatibility requirements -->
     <depends>com.intellij.modules.platform</depends>
@@ -12,8 +12,7 @@
     <!-- Text to display as description on Settings | Plugin page -->
     <description>
         <![CDATA[
-      Playing selected urls
-      to see hints in the lower left corner of the IDE.
+      Allows to get radio stations url from https://www.radio-browser.info/ by genre and then play them in the IDE's editor.
     ]]>
     </description>
     <change-notes>
@@ -25,35 +24,35 @@
     </change-notes>
 
     <!-- Text to display as company information on Settings | Plugin page -->
-    <vendor url="https://plugins.jetbrains.com">IntelliJ Platform SDK</vendor>
+    <vendor url="https://github.com/alexeynovosibirsk">NazarovAlexey</vendor>
 
     <actions>
         <action
-                class="com.nazarov.action.ViewAction"
+                class="com.nazarov.radman.action.ViewAction"
                 text="View in browser"
                 description="Open selected url in browser"
-                icon="SdkIcons.Sdk_browser_icon">
+                icon="Icons.Browser_icon">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
         <action
-                class="com.nazarov.action.StopAction"
-                text="Stop"
+                class="com.nazarov.radman.action.PauseAction"
+                text="Pause"
                 description="Stop playing"
-                icon="SdkIcons.Sdk_pause_icon">
+                icon="Icons.Pause_icon">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
         <action id="EditorBasics.EditorIllustrationAction"
-                class="com.nazarov.action.PlayAction"
+                class="com.nazarov.radman.action.PlayAction"
                 text="Play"
                 description="Playing selected url"
-                icon="SdkIcons.Sdk_play_icon">
+                icon="Icons.Play_icon">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
 
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow id="Rad.Man." secondary="true" icon="SdkIcons.Sdk_headphones_icon" anchor="bottom"
-                    factoryClass="com.nazarov.RadMan"/>
+        <toolWindow id="Rad.Man." secondary="true" icon="Icons.Headphones_icon" anchor="bottom"
+                    factoryClass="com.nazarov.radman.RadMan"/>
     </extensions>
 </idea-plugin>
