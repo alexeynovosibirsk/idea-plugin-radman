@@ -53,7 +53,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
 
-        <toolWindow id="RadMan" secondary="true" icon="Icons.Headphones_icon" anchor="bottom"
+        <toolWindow id="Rad.Man." secondary="true" icon="Icons.Headphones_icon" anchor="bottom"
                     factoryClass="com.nazarov.radman.RadMan"/>
 
         <fileType
