@@ -1,6 +1,8 @@
 package com.nazarov.radman;
 
 import com.intellij.ide.HelpTooltip;
+import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.fileTypes.PlainTextFileType;
 import com.intellij.openapi.project.DumbAware;
@@ -13,10 +15,7 @@ import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiFileFactory;
-import com.intellij.psi.PsiManager;
+import com.intellij.psi.*;
 import com.intellij.ui.DocumentAdapter;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.content.Content;
@@ -25,6 +24,7 @@ import com.nazarov.radman.model.CommunityRadioBrowser;
 import com.nazarov.radman.util.Util;
 import icons.Icons;
 import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import java.awt.*;
@@ -237,20 +237,25 @@ public class RadMan implements ToolWindowFactory, DumbAware {
         return jPanel;
     }
 
-    public boolean findInCommunityRadioBrowser(CommunityRadioBrowser cbr, ToolWindow toolWindow) {
+    public boolean findInCommunityRadioBrowser(CommunityRadioBrowser crb, ToolWindow toolWindow) {
         boolean isFileCreated = false;
         try {
             String result = Util.getData(findParameter.getText(), limit.getText(), crb);
 
-            final Project project = toolWindow.getProject();
+            Project project = toolWindow.getProject();
+            VirtualFile virtualFile = project.getProjectFile();
+            VirtualFile directory = virtualFile.getParent().getParent();
+
             PsiManager psiManager = PsiManager.getInstance(project);
-            PsiDirectory psiDirectory = psiManager.findDirectory(project.getBaseDir());
+            PsiDirectory psiDirectory = psiManager.findDirectory(directory);
 
             if (!result.equals("[]") && psiDirectory != null && Util.getStationsFound() != 0) {
                 String fileName = Util.createFileName(findParameter.getText());
-                PsiFileFactory psiFileFactory = PsiFileFactory.getInstance(project);
-                PsiFile psiFile = psiFileFactory.createFileFromText(fileName, PlainTextFileType.INSTANCE, result);
-                psiDirectory.add(psiFile);
+                final PsiFileFactory psiFileFactory = PsiFileFactory.getInstance(project);
+                final PsiFile psiFile = psiFileFactory.createFileFromText(fileName, PlainTextFileType.INSTANCE, result);
+
+                Runnable r = () -> psiDirectory.add(psiFile);
+                WriteCommandAction.runWriteCommandAction(project, r);
 
                 isFileCreated = true;
             }
@@ -261,14 +266,16 @@ public class RadMan implements ToolWindowFactory, DumbAware {
         return isFileCreated;
     }
 
-    static PsiFile psiFile;
     public static JLabel nowPlayingFile = new JLabel();
     static JLabel nowPlayingUrl = new JLabel();
 
     private static Pair<Integer, Integer> lineAndColumn;
+
     public static void setLineAndColumn(int line, int column) {
         lineAndColumn = new Pair<>(line, column);
     }
+
+    static PsiFile psiFile;
 
     @NotNull
     private static JPanel createProcessingPanel(ToolWindow toolWindow) {
@@ -310,7 +317,7 @@ public class RadMan implements ToolWindowFactory, DumbAware {
 
     public static void setNowPlayingUrl(String string) {
         // get all except station url:
-        nowPlayingUrl.setText(string.split(" ", 2)[1]);
+        nowPlayingUrl.setText(string);
     }
 
 //            String[] STRING_VALUES = {"Yes", "NO"};

@@ -2,7 +2,7 @@ package com.nazarov.radman.jaad.mp4.boxes.impl;
 
 import com.nazarov.radman.jaad.mp4.MP4InputStream;
 import com.nazarov.radman.jaad.mp4.boxes.FullBox;
-import com.nazarov.radman.jaad.mp4.boxes.impl.samplegroupentries.*;
+import com.nazarov.radman.jaad.mp4.boxes.impl.samplegroupentries.SampleGroupDescriptionEntry;
 
 import java.io.IOException;
 

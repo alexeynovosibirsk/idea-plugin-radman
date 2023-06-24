@@ -1,0 +1,27 @@
+// Copyright 2000-2022 JetBrains s.r.o. and other contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+{
+  parserClass="org.intellij.sdk.language.parser.RadManParser"
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+  psiClassPrefix="RadMan"
+  psiImplClassSuffix="Impl"
+  psiPackage="org.intellij.sdk.language.psi"
+  psiImplPackage="org.intellij.sdk.language.psi.impl"
+  elementTypeHolderClass="org.intellij.sdk.language.psi.RadManTypes"
+  elementTypeClass="org.intellij.sdk.language.psi.RadManElementType"
+  tokenTypeClass="org.intellij.sdk.language.psi.RadManTokenType"
+  psiImplUtilClass="com.nazarov.radman.color.language.RadManPsiUtil"
+}
+
+simpleFile ::= item_*
+
+private item_ ::= (property|COMMENT|CRLF)
+
+property ::= (KEY? SEPARATOR VALUE?) | KEY {
+  pin=3
+  recoverWhile="recover_property"
+  mixin="com.nazarov.radman.color.language.RadManNamedElementImpl"
+  implements="com.nazarov.radman.color.language.RadManNamedElement"
+  methods=[getKey getValue getName setName getNameIdentifier getPresentation]
+}
+
+private recover_property ::= !(KEY|SEPARATOR|COMMENT)

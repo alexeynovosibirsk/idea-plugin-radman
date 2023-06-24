@@ -7,7 +7,6 @@ import com.nazarov.radman.RadMan;
 import com.nazarov.radman.util.audio.StationPlayer;
 import icons.Icons;
 import org.jetbrains.annotations.NotNull;
-
 import java.net.URL;
 
 public class PauseAction extends AnAction {
@@ -24,9 +23,12 @@ public class PauseAction extends AnAction {
         if (played) {
             stationPlayer.stopPlay();
             RadMan.setNowPlayingFile("nothing...");
+            RadMan.setNowPlayingUrl("");
         } else {
             String playingFile = PlayAction.getPlayingFile();
             RadMan.setNowPlayingFile(playingFile);
+            String playingUrl = PlayAction.getNowPlayingUrl();
+            RadMan.setNowPlayingUrl(playingUrl);
 
             PlayAction.setUrl(url);
             stationPlayer.play();
@@ -38,8 +40,6 @@ public class PauseAction extends AnAction {
     public void update(@NotNull final AnActionEvent e) {
         stationPlayer = StationPlayer.getInstance();
         boolean played = stationPlayer.getStatus();
-        // Set visibility
-        //   e.getPresentation().setEnabledAndVisible(played);
     }
 
 }

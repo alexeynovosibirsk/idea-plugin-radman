@@ -1,10 +1,7 @@
 package com.nazarov.radman.util.audio;
 
-
-
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;

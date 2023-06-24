@@ -10,16 +10,14 @@ import com.intellij.openapi.editor.VisualPosition;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiFile;
 import com.nazarov.radman.RadMan;
-import com.nazarov.radman.util.audio.StationPlayer;
 import com.nazarov.radman.util.UrlUtil;
-
+import com.nazarov.radman.util.audio.StationPlayer;
 import java.net.URL;
 
 public class PlayAction extends AnAction {
     private static URL url;
-
     private static String playingFile;
-
+    private static String nowPlayingUrl;
 
     @Override
     public void actionPerformed(AnActionEvent e) {
@@ -36,13 +34,14 @@ public class PlayAction extends AnAction {
         Document document = editor.getDocument();
 
         String allLineUnderCursor = document.getText(textRange);
-        RadMan.setNowPlayingUrl(allLineUnderCursor);
+        nowPlayingUrl = allLineUnderCursor.split(" ", 2)[1];
+        RadMan.setNowPlayingUrl(nowPlayingUrl);
 
         PsiFile psiFile = e.getData(CommonDataKeys.PSI_FILE);
         if (psiFile != null) {
             RadMan.setPsiFile(psiFile);
-        playingFile = psiFile.getName();
-        RadMan.setNowPlayingFile(playingFile);
+            playingFile = psiFile.getName();
+            RadMan.setNowPlayingFile(playingFile);
         }
 
         String selectedUrl = allLineUnderCursor.split(" ")[0];
@@ -55,12 +54,19 @@ public class PlayAction extends AnAction {
     public static URL getUrl() {
         return url;
     }
+
     public static void setUrl(URL url) {
         PlayAction.url = url;
     }
+
     public static String getPlayingFile() {
         return playingFile;
     }
+
+    public static String getNowPlayingUrl() {
+        return nowPlayingUrl;
+    }
+
     public static void setLineAndColumn(int line, int column) { // put cursor to the line of playing station
         RadMan.setLineAndColumn(line, column);
     }

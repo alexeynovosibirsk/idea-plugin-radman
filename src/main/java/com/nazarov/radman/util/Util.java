@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.nazarov.radman.model.CommunityRadioBrowser;
-
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalTime;
