@@ -1,6 +1,7 @@
 package com.nazarov.radman;
 
 import com.intellij.ide.HelpTooltip;
+import com.intellij.lang.Language;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
@@ -291,6 +292,10 @@ public class RadMan implements ToolWindowFactory, DumbAware {
             @Override
             public void mouseClicked(MouseEvent e) {
                 final Project project = toolWindow.getProject();
+                if (psiFile == null) { //this is only for automating test.
+                    final PsiFileFactory factory = PsiFileFactory.getInstance(project);
+                    psiFile = factory.createFileFromText("stub.rad", PlainTextFileType.INSTANCE, "stub");
+                }
                 VirtualFile virtualFile = psiFile.getVirtualFile();
                 new OpenFileDescriptor(project, virtualFile, lineAndColumn.first, lineAndColumn.second).navigate(true);
             }
