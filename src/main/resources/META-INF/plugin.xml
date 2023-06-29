@@ -18,8 +18,10 @@
     <change-notes>
         <![CDATA[
       <ul>
-        <li><b>1.0.0</b> First release</li>
-        <li><b>1.0.1</b> Fix tests</li>
+      <li><b>1.0.2</b> Fix error message for view in browser</li>
+      <li><b>1.0.1</b> Fix tests</li>
+      <li><b>1.0.0</b> First release</li>
+
       </ul>
     ]]>
     </change-notes>
@@ -64,7 +66,8 @@
                 language="RadMan"
                 extensions="rad"/>
 
-        <lang.parserDefinition language="RadMan" implementationClass="com.nazarov.radman.color.language.RadManParserDefinition"/>
+        <lang.parserDefinition language="RadMan"
+                               implementationClass="com.nazarov.radman.color.language.RadManParserDefinition"/>
         <lang.syntaxHighlighterFactory language="RadMan"
                                        implementationClass="com.nazarov.radman.color.language.RadManSyntaxHighlighterFactory"/>
         <iconProvider implementation="com.nazarov.radman.color.language.RadManPropertyIconProvider"/>

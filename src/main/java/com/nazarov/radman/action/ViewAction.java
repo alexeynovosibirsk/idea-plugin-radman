@@ -19,15 +19,24 @@ public class ViewAction extends AnAction {
         Caret primaryCaret = editor.getCaretModel().getCurrentCaret();
         String selected = primaryCaret.getSelectedText();
 
-        String[] schemes = {"http","https"};
+        String[] schemes = {"http", "https"};
         UrlValidator urlValidator = new UrlValidator(schemes);
 
-        if(urlValidator.isValid(selected)) {
+        if (urlValidator.isValid(selected)) {
             URL url = UrlUtil.makeUrl(selected);
             BrowserUtil.browse(url);
         } else {
-            Messages.showErrorDialog("[" + selected + "]", "URL IS NOT VALID!");
+
+            if (selected == null) {
+                message("In order to open an url link you have to highlight the link via cursor!");
+            } else {
+                message("[" + selected + "]");
+            }
         }
+    }
+
+    private void message(String string) {
+        Messages.showErrorDialog(string, "URL IS NOT VALID!");
     }
 
 }
