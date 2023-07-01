@@ -18,9 +18,10 @@
     <change-notes>
         <![CDATA[
       <ul>
-      <li><b>1.0.2</b> Fix error message for view in browser</li>
-      <li><b>1.0.1</b> Fix tests</li>
-      <li><b>1.0.0</b> First release</li>
+      <li><b>1.0.3</b> Change deprecated method</li>
+      <li><b>1.0.2</b> Fix error text message for action View in browser</li>
+      <li><b>1.0.1</b> Fix for autotests</li>
+      <li><b>1.0.0</b> Release</li>
 
       </ul>
     ]]>
@@ -32,7 +33,7 @@
     <actions>
         <action
                 class="com.nazarov.radman.action.ViewAction"
-                text="View in browser"
+                text="View in Browser"
                 description="Open selected url in browser"
                 icon="Icons.Browser_icon">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
