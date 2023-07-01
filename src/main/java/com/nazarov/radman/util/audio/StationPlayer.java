@@ -3,6 +3,7 @@ package com.nazarov.radman.util.audio;
 import com.nazarov.radman.action.PlayAction;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -53,11 +54,9 @@ public class StationPlayer extends Thread {
 
             } catch (JavaLayerException | ConnectException | FileNotFoundException ex) {
                 ex.printStackTrace();
-                new InfoPlayer();
                 e.printStackTrace();
 
             } catch (IOException ex) {
-                new InfoPlayer();
                 e.printStackTrace();
             }
         }

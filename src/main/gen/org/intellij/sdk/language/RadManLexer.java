@@ -5,9 +5,9 @@
 package org.intellij.sdk.language;
 
 import com.intellij.lexer.FlexLexer;
+import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import org.intellij.sdk.language.psi.RadManTypes;
-import com.intellij.psi.TokenType;
 
 
 public class RadManLexer implements FlexLexer {

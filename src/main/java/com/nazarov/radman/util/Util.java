@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.nazarov.radman.model.CommunityRadioBrowser;
+
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalTime;
@@ -35,7 +36,7 @@ public class Util {
     public static String parseJson(String stringUrl, CommunityRadioBrowser crb) throws IOException {
 
         List<String> resultList = new ArrayList<>();
-        String fieldName = "Unknown";
+        String fieldName;
         String spltr = " | ";
 
         String homepage = "";

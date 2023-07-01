@@ -9,6 +9,7 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.ui.Messages;
 import com.nazarov.radman.util.UrlUtil;
 import org.apache.commons.validator.routines.UrlValidator;
+
 import java.net.URL;
 
 public class ViewAction extends AnAction {

@@ -1,12 +1,12 @@
 // This is a generated file. Not intended for manual editing.
 package org.intellij.sdk.language.psi;
 
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.tree.IElementType;
 import com.nazarov.radman.color.language.RadManElementType;
 import com.nazarov.radman.color.language.RadManTokenType;
-import org.intellij.sdk.language.psi.impl.*;
+import org.intellij.sdk.language.psi.impl.RadManPropertyImpl;
 
 public interface RadManTypes {
 

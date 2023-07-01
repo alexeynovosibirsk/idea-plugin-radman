@@ -7,13 +7,14 @@ import com.nazarov.radman.RadMan;
 import com.nazarov.radman.util.audio.StationPlayer;
 import icons.Icons;
 import org.jetbrains.annotations.NotNull;
+
 import java.net.URL;
 
 public class PauseAction extends AnAction {
-    StationPlayer stationPlayer;
+    private StationPlayer stationPlayer;
 
     @Override
-    public void actionPerformed(AnActionEvent e) {
+    public void actionPerformed(@NotNull AnActionEvent e) {
         stationPlayer = StationPlayer.getInstance();
         boolean played = stationPlayer.getStatus();
         URL url = PlayAction.getUrl();
@@ -39,7 +40,8 @@ public class PauseAction extends AnAction {
     @Override
     public void update(@NotNull final AnActionEvent e) {
         stationPlayer = StationPlayer.getInstance();
-        boolean played = stationPlayer.getStatus();
+//        TODO: check if not needed - delete it
+//        boolean played = stationPlayer.getStatus();
     }
 
 }

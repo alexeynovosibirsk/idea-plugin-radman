@@ -1,8 +1,6 @@
 package com.nazarov.radman;
 
 import com.intellij.ide.HelpTooltip;
-import com.intellij.lang.Language;
-import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.fileTypes.PlainTextFileType;
@@ -12,11 +10,13 @@ import com.intellij.openapi.ui.ComponentValidator;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.ValidationInfo;
 import com.intellij.openapi.util.Pair;
-import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiDirectory;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiFileFactory;
+import com.intellij.psi.PsiManager;
 import com.intellij.ui.DocumentAdapter;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.content.Content;
@@ -24,6 +24,7 @@ import com.intellij.ui.content.ContentFactory;
 import com.nazarov.radman.model.CommunityRadioBrowser;
 import com.nazarov.radman.util.Util;
 import icons.Icons;
+import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -62,25 +63,15 @@ public class RadMan implements ToolWindowFactory, DumbAware {
         label.setText("Find stations in https://www.radio-browser.info/: ");
 
         limit.setName("Limit");
-        final String MESSAGE = "Limit of query must be integer";
-
-        new ComponentValidator(toolWindow.getDisposable()).withValidator(v -> {
+        final String MESSAGE = "Limit of query must be integer. This variable will be ignored!";
+        new ComponentValidator(toolWindow.getDisposable()).withValidator(() -> {
             String lim = limit.getText();
-            if (StringUtil.isNotEmpty(lim)) {
-                try {
-                    int limitValue = Integer.parseInt(lim);
-                    if (limitValue <= 1000) {
-                        v.updateInfo(null);
-                    } else {
-                        v.updateInfo(new ValidationInfo(MESSAGE, limit));
-                    }
-                } catch (NumberFormatException nfe) {
-                    v.updateInfo(new ValidationInfo(MESSAGE, limit));
-                }
-            } else {
-                v.updateInfo(null);
+            if (!StringUtils.isNumeric(lim)) {
+                return new ValidationInfo(MESSAGE, limit);
             }
+            return null;
         }).installOn(limit);
+
         limit.getDocument().addDocumentListener(new DocumentAdapter() {
             @Override
             protected void textChanged(@NotNull DocumentEvent e) {

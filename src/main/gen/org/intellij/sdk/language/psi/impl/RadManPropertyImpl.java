@@ -1,14 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package org.intellij.sdk.language.psi.impl;
 
-import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.nazarov.radman.color.language.RadManNamedElementImpl;
-import org.intellij.sdk.language.psi.*;
 import com.nazarov.radman.color.language.RadManPsiUtil;
-import com.intellij.navigation.ItemPresentation;
+import org.intellij.sdk.language.psi.RadManProperty;
+import org.intellij.sdk.language.psi.RadManVisitor;
+import org.jetbrains.annotations.NotNull;
 
 public class RadManPropertyImpl extends RadManNamedElementImpl implements RadManProperty {
 
@@ -42,7 +43,7 @@ public class RadManPropertyImpl extends RadManNamedElementImpl implements RadMan
   }
 
   @Override
-  public PsiElement setName(String newName) {
+  public PsiElement setName(@NotNull String newName) {
     return RadManPsiUtil.setName(this, newName);
   }
 

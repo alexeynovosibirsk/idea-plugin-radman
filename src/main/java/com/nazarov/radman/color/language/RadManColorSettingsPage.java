@@ -7,6 +7,7 @@ import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import javax.swing.*;
 import java.util.Map;
 
@@ -33,10 +34,11 @@ public class RadManColorSettingsPage implements ColorSettingsPage {
   @NotNull
   @Override
   public String getDemoText() {
-    return "# This is an example of colors for radman \".rad\" files.\n" +
-            "http://streamRadio/listen.mp3  | And then if present: RadioName | https://radio.home.page | US | Lang: | Votes:5\n" +
-            "https://streamRadio/lsten.aac  | And then if present: RadioName | http://radio.home.page | RU | Lang: Russian | Votes:100\n" +
-            "# Some comment...";
+    return """
+            # This is an example of colors for radman (.rad) files.
+            http://streamRadio/listen.mp3  | And then if present: RadioName | https://radio.home.page | US | Lang: | Votes:5
+            https://streamRadio/lsten.aac  | And then if present: RadioName | http://radio.home.page | RU | Lang: Russian | Votes:100
+            # Some comment...""";
   }
 
   @Nullable

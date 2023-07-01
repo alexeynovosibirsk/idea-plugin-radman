@@ -1,6 +1,7 @@
 package com.nazarov.radman.util;
 
 import org.springframework.web.reactive.function.client.WebClient;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,6 +15,7 @@ public class UrlUtil {
 
     Map<String, String> resultMap = new HashMap<>();
 
+//    TODO: will be used to check links
     public Map<String, String> getHeader(String radioUrl) {
         URLConnection urlConnection = null;
         try {
