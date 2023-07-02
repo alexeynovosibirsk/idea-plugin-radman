@@ -36,6 +36,14 @@ public class ViewAction extends AnAction {
         }
     }
 
+    @Override
+    public void update(AnActionEvent e) {
+        // Set the availability based on opened filetype
+        e.getPresentation().setEnabledAndVisible(
+                ActionUtil.getDefaultExtenstion(e).equals("rad")
+        );
+    }
+
     private void message(String string) {
         Messages.showErrorDialog(string, "URL IS NOT VALID!");
     }

@@ -12,17 +12,19 @@ import com.intellij.psi.PsiFile;
 import com.nazarov.radman.RadMan;
 import com.nazarov.radman.util.UrlUtil;
 import com.nazarov.radman.util.audio.StationPlayer;
+import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
 
 public class PlayAction extends AnAction {
+
     private static URL url;
     private static String playingFile;
     private static String nowPlayingUrl;
 
     @Override
-    public void actionPerformed(AnActionEvent e) {
-        final Editor editor = e.getRequiredData(CommonDataKeys.EDITOR);
+    public void actionPerformed(@NotNull AnActionEvent e) {
+        Editor editor = ActionUtil.getEditor(e);
         Caret primaryCaret = editor.getCaretModel().getPrimaryCaret();
 
         VisualPosition visualPosition = primaryCaret.getVisualPosition();
@@ -50,6 +52,14 @@ public class PlayAction extends AnAction {
         StationPlayer stationPlayer = StationPlayer.getInstance();
         stationPlayer.stopPlay();
         stationPlayer.play();
+    }
+
+    @Override
+    public void update(AnActionEvent e) {
+        // Set the availability based on opened filetype
+        e.getPresentation().setEnabledAndVisible(
+                ActionUtil.getDefaultExtenstion(e).equals("rad")
+        );
     }
 
     public static URL getUrl() {

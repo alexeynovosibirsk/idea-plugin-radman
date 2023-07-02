@@ -23,7 +23,7 @@ public class RadManFileType extends LanguageFileType {
     @NotNull
     @Override
     public String getDescription() {
-        return "RadMan language file";
+        return "RadMan";
     }
 
     @NotNull

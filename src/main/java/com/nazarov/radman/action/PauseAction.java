@@ -40,8 +40,9 @@ public class PauseAction extends AnAction {
     @Override
     public void update(@NotNull final AnActionEvent e) {
         stationPlayer = StationPlayer.getInstance();
-//        TODO: check if not needed - delete it
-//        boolean played = stationPlayer.getStatus();
+       // Set the availability based on opened filetype
+        e.getPresentation().setEnabledAndVisible(
+                ActionUtil.getDefaultExtenstion(e).equals("rad"));
     }
 
 }
