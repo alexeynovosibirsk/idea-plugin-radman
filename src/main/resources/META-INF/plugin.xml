@@ -18,6 +18,7 @@
     <change-notes>
         <![CDATA[
       <ul>
+      <li><b>1.0.4</b> Change actions visibility</li>
       <li><b>1.0.3</b> Change deprecated method</li>
       <li><b>1.0.2</b> Fix error text message for action View in browser</li>
       <li><b>1.0.1</b> Fix for autotests</li>
