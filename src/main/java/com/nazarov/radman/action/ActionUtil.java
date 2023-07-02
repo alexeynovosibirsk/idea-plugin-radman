@@ -14,7 +14,7 @@ public class ActionUtil {
     }
 
     public static String getDefaultExtenstion(AnActionEvent e) {
-        Editor editor = ActionUtil.getEditor(e);
+        Editor editor = getEditor(e);
         VirtualFile v = FileDocumentManager.getInstance().getFile(editor.getDocument());
         String defaultExtension = "null";
         if (v != null) {
