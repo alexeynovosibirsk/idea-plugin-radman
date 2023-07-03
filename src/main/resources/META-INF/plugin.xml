@@ -1,7 +1,7 @@
 <idea-plugin>
 
     <!-- Unique id for this plugin. Must stay constant for the life of the plugin. -->
-    <id>com.nazarov.radman</id>
+    <id>RADioMANiac</id>
 
     <!-- Text to display as name on Settings | Plugin page -->
     <name>RadMan</name>
@@ -29,7 +29,7 @@
     </change-notes>
 
     <!-- Text to display as company information on Settings | Plugin page -->
-    <vendor url="https://github.com/alexeynovosibirsk">NazarovAlexey</vendor>
+    <vendor url="https://github.com/alexeynovosibirsk">Alexey Nazarov</vendor>
 
     <actions>
         <action
