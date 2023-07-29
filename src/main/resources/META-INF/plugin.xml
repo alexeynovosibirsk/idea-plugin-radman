@@ -29,6 +29,13 @@
 
     <actions>
         <action
+                class="com.nazarov.radman.action.DeleteAction"
+                text="Delete"
+                description="Delete string"
+                icon="Icons.Delete_icon">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <action
                 class="com.nazarov.radman.action.CheckUrlAction"
                 text="CheckUrl"
                 description="Check"
