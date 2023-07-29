@@ -2,7 +2,6 @@ package com.nazarov.radman.util;
 
 import com.nazarov.radman.message.ShowMsg;
 import org.apache.commons.validator.routines.UrlValidator;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.net.URL;
 
@@ -34,14 +33,14 @@ public class UrlUtil {
     }
 
     //TODO: Use when getting url streams from some new resources
-    private String webClient(String urlAsString) {
-
-        WebClient client = WebClient.create();
-        WebClient.ResponseSpec responseSpec = client.get()
-                .uri(urlAsString)
-                .retrieve();
-        String responseBody = responseSpec.bodyToMono(String.class).block();
-
-        return responseBody;
-    }
+//    private String webClient(String urlAsString) {
+//
+//        WebClient client = WebClient.create();
+//        WebClient.ResponseSpec responseSpec = client.get()
+//                .uri(urlAsString)
+//                .retrieve();
+//        String responseBody = responseSpec.bodyToMono(String.class).block();
+//
+//        return responseBody;
+//    }
 }

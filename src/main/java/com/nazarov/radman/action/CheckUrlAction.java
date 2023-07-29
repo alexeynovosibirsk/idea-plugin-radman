@@ -21,12 +21,12 @@ public class CheckUrlAction extends AnAction {
         String allLineUnderCursor = ActionUtil.getStringUnderCursor(e);
         String selectedUrl = allLineUnderCursor.split(" ")[0];
 
-        if ((UrlUtil.urlValidator(selectedUrl)) && (CheckHeader.isAudoStreamUrl(selectedUrl))) {
+        if ((UrlUtil.urlValidator(selectedUrl)) && (CheckHeader.isAudioStream(selectedUrl))) {
             ShowMsg.UrlIsOk();
 
         } else {
 
-            if ((UrlUtil.urlValidator(selectedUrl)) && (!CheckHeader.isAudoStreamUrl(selectedUrl))) {
+            if ((UrlUtil.urlValidator(selectedUrl)) && (!CheckHeader.isAudioStream(selectedUrl))) {
                 ShowMsg.UrlIsNotValidAndWillBeDeleted();
                 Project project = e.getProject();
                 Editor editor = ActionUtil.getEditor(e);

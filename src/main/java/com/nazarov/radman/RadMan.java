@@ -8,11 +8,8 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.nazarov.radman.panel.FindPanel;
 import com.nazarov.radman.panel.PlayPanel;
-import com.nazarov.radman.panel.ProcPanel;
-import icons.Icons;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.Icon;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

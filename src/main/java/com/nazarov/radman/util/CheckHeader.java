@@ -10,17 +10,17 @@ import java.util.Set;
 
 public class CheckHeader {
 
-    public static void main(String[] args) {
-        CheckHeader checkUrl = new CheckHeader();
-        boolean b = checkUrl.isAudoStreamUrl("http://edge126.rdsnet.ro:84/profm/music-fm.mp3");
-        System.out.println(">>>" + b);
-    }
+//    public static void main(String[] args) {
+//        CheckHeader checkUrl = new CheckHeader();
+//        boolean b = checkUrl.isAudioStream("http://edge126.rdsnet.ro:84/profm/music-fm.mp3");
+//        System.out.println(">>>" + b);
+//    }
 
     private static final Map<String, String> resultMap = new HashMap<>();
 
     //TODO: реализовать просмотр хедеров
     public static void printHeader(String url) {
-        if (isAudoStreamUrl(url)) {
+        if (isAudioStream(url)) {
 
             for (Map.Entry<String, String> localMap : resultMap.entrySet()) {
                 String headerName = localMap.getKey();
@@ -30,7 +30,7 @@ public class CheckHeader {
         }
     }
 
-    public static boolean isAudoStreamUrl(String url) {
+    public static boolean isAudioStream(String url) {
         getHeader(url);
         if ((resultMap.size() < 10) || !resultMap.get("Content-Type").contains("audio")) {
 
@@ -41,6 +41,10 @@ public class CheckHeader {
     }
 
     public static Map<String, String> getHeader(String radioUrl) {
+        if (!resultMap.isEmpty()) {
+            resultMap.clear();
+        }
+
 
         URLConnection urlConnection = null;
         URL url = UrlUtil.makeUrl(radioUrl);

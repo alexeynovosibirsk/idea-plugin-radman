@@ -37,7 +37,7 @@ public class ShowMsg {
         Messages.showMessageDialog(msg, title, Icons.Headphones_icon);
     }
 
-    public static void debugDialog(String msg, String title) {
+    public static void debug(String msg, String title) {
         Messages.showMessageDialog(msg, title, Icons.Headphones_icon);
     }
 
