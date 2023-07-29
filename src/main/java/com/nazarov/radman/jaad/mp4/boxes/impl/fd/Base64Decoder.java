@@ -1,6 +1,11 @@
 package com.nazarov.radman.jaad.mp4.boxes.impl.fd;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PushbackInputStream;
 
 /**
  * A BASE64 character decoder.

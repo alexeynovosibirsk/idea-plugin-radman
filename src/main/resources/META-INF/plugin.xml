@@ -18,6 +18,7 @@
     <change-notes>
         <![CDATA[
       <ul>
+      <li><b>2.0.0</b> Processing playlist panel added</li>
       <li><b>1.0.0</b> Release</li>
       </ul>
     ]]>
@@ -27,6 +28,13 @@
     <vendor url="https://github.com/alexeynovosibirsk">Alexey Nazarov</vendor>
 
     <actions>
+        <action
+                class="com.nazarov.radman.action.CheckUrlAction"
+                text="CheckUrl"
+                description="Check"
+                icon="Icons.Check_url_icon">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
         <action
                 class="com.nazarov.radman.action.ViewAction"
                 text="View in Browser"

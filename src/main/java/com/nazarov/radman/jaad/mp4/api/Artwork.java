@@ -3,7 +3,7 @@ package com.nazarov.radman.jaad.mp4.api;
 import com.nazarov.radman.jaad.mp4.boxes.impl.meta.ITunesMetadataBox.DataType;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.logging.Level;

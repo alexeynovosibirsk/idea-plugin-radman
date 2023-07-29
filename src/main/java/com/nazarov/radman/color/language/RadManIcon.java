@@ -2,7 +2,7 @@ package com.nazarov.radman.color.language;
 
 import com.intellij.openapi.util.IconLoader;
 
-import javax.swing.*;
+import javax.swing.Icon;
 
 public class RadManIcon {
 

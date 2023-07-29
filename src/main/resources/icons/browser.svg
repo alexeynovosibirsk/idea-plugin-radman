@@ -3,9 +3,9 @@
 <svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
      viewBox="0 0 198 198" style="enable-background:new 0 0 198 198;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#4C0556;}
+	.st0{fill:none;}
 	.st1{fill:none;}
-	.st2{fill:none;stroke:#FFFFFF;stroke-miterlimit:10;}
+	.st2{fill:none;stroke:#808080;stroke-miterlimit:10;stroke-width:5}
 </style>
 <circle class="st0" cx="99" cy="99" r="99"/>
 <line class="st1" x1="58.1" y1="125.5" x2="58.1" y2="172.7"/>

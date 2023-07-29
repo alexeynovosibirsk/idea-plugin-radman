@@ -8,7 +8,7 @@ import org.intellij.sdk.language.psi.RadManProperty;
 import org.intellij.sdk.language.psi.RadManTypes;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
+import javax.swing.Icon;
 
 public class RadManPsiUtil {
 

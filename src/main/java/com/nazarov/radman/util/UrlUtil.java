@@ -1,55 +1,39 @@
 package com.nazarov.radman.util;
 
+import com.nazarov.radman.message.ShowMsg;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class UrlUtil {
 
-    Map<String, String> resultMap = new HashMap<>();
+    public static boolean urlValidator(String string) {
+        String[] schemes = {"http", "https"};
+        UrlValidator urlValidator = new UrlValidator(schemes);
 
-//    TODO: will be used to check links
-    public Map<String, String> getHeader(String radioUrl) {
-        URLConnection urlConnection = null;
-        try {
-            URL url = new URL(radioUrl);
-            urlConnection = url.openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Map<String, List<String>> headers = urlConnection.getHeaderFields();
-        Set<Map.Entry<String, List<String>>> entrySet = headers.entrySet();
-        for (Map.Entry<String, List<String>> entry : entrySet) {
-            String headerName = entry.getKey();
-            List<String> headerValues = entry.getValue();
-            for (String value : headerValues) {
-                System.out.println(headerName + " " + value);
-                resultMap.put(headerName, value);
-            }
-        }
-
-        return resultMap;
+        return urlValidator.isValid(string);
     }
 
     public static URL makeUrl(String string) {
-        URL url;
-        try {
-            url = new URL(string);
-        } catch (
-                MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
 
-        return url;
+            URL url = null;
+
+            try {
+                if (urlValidator(string)) {
+                    url = new URL(string);
+                } else {
+                    ShowMsg.UrlIsNotValid();
+                }
+
+            } catch (Exception e) {
+                ShowMsg.UnknownError();
+            }
+
+            return url;
     }
 
+    //TODO: Use when getting url streams from some new resources
     private String webClient(String urlAsString) {
 
         WebClient client = WebClient.create();

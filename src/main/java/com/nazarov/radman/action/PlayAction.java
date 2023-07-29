@@ -4,12 +4,10 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.editor.Caret;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.VisualPosition;
-import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiFile;
-import com.nazarov.radman.RadMan;
+import com.nazarov.radman.panel.PlayPanel;
+import com.nazarov.radman.util.ActionUtil;
 import com.nazarov.radman.util.UrlUtil;
 import com.nazarov.radman.util.audio.StationPlayer;
 import org.jetbrains.annotations.NotNull;
@@ -18,33 +16,41 @@ import java.net.URL;
 
 public class PlayAction extends AnAction {
 
+    private static final String EXTENSION = "rad";
+
     private static URL url;
     private static String playingFile;
     private static String nowPlayingUrl;
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        Editor editor = ActionUtil.getEditor(e);
-        Caret primaryCaret = editor.getCaretModel().getPrimaryCaret();
+//        Editor editor = ActionUtil.getEditor(e);
+//        Caret primaryCaret = editor.getCaretModel().getPrimaryCaret();
+//
+//        VisualPosition visualPosition = primaryCaret.getVisualPosition();
+//        setLineAndColumn(visualPosition.getLine(), visualPosition.getColumn());
+//
+//        int start = primaryCaret.getVisualLineStart();
+//        int end = primaryCaret.getVisualLineEnd();
+//        TextRange textRange = new TextRange(start, end);
+//
+//        Document document = editor.getDocument();
 
+//        String allLineUnderCursor = document.getText(textRange);
+        Caret primaryCaret = ActionUtil.getCaret(e);
         VisualPosition visualPosition = primaryCaret.getVisualPosition();
         setLineAndColumn(visualPosition.getLine(), visualPosition.getColumn());
 
-        int start = primaryCaret.getVisualLineStart();
-        int end = primaryCaret.getVisualLineEnd();
-        TextRange textRange = new TextRange(start, end);
+        String allLineUnderCursor = ActionUtil.getStringUnderCursor(e);
 
-        Document document = editor.getDocument();
-
-        String allLineUnderCursor = document.getText(textRange);
         nowPlayingUrl = allLineUnderCursor.split(" ", 2)[1];
-        RadMan.setNowPlayingUrl(nowPlayingUrl);
+        PlayPanel.setNowPlayingUrl(nowPlayingUrl);
 
         PsiFile psiFile = e.getData(CommonDataKeys.PSI_FILE);
         if (psiFile != null) {
-            RadMan.setPsiFile(psiFile);
+            PlayPanel.setPsiFile(psiFile);
             playingFile = psiFile.getName();
-            RadMan.setNowPlayingFile(playingFile);
+            PlayPanel.setNowPlayingFile(playingFile);
         }
 
         String selectedUrl = allLineUnderCursor.split(" ")[0];
@@ -58,7 +64,7 @@ public class PlayAction extends AnAction {
     public void update(AnActionEvent e) {
         // Set the availability based on opened filetype
         e.getPresentation().setEnabledAndVisible(
-                ActionUtil.getDefaultExtenstion(e).equals("rad")
+                ActionUtil.getDefaultExtension(e).equals(EXTENSION)
         );
     }
 
@@ -79,7 +85,7 @@ public class PlayAction extends AnAction {
     }
 
     public static void setLineAndColumn(int line, int column) { // put cursor to the line of playing station
-        RadMan.setLineAndColumn(line, column);
+        PlayPanel.setLineAndColumn(line, column);
     }
 
 }

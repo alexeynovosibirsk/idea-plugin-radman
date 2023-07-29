@@ -1,6 +1,13 @@
 package com.nazarov.radman.jaad.mp4.api;
 
-import com.nazarov.radman.jaad.mp4.api.codec.*;
+import com.nazarov.radman.jaad.mp4.api.codec.AC3DecoderInfo;
+import com.nazarov.radman.jaad.mp4.api.codec.AMRDecoderInfo;
+import com.nazarov.radman.jaad.mp4.api.codec.AVCDecoderInfo;
+import com.nazarov.radman.jaad.mp4.api.codec.EAC3DecoderInfo;
+import com.nazarov.radman.jaad.mp4.api.codec.EVRCDecoderInfo;
+import com.nazarov.radman.jaad.mp4.api.codec.H263DecoderInfo;
+import com.nazarov.radman.jaad.mp4.api.codec.QCELPDecoderInfo;
+import com.nazarov.radman.jaad.mp4.api.codec.SMVDecoderInfo;
 import com.nazarov.radman.jaad.mp4.boxes.BoxTypes;
 import com.nazarov.radman.jaad.mp4.boxes.impl.sampleentries.codec.CodecSpecificBox;
 

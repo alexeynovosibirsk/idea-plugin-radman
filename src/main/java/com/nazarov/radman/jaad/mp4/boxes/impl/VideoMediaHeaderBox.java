@@ -3,7 +3,7 @@ package com.nazarov.radman.jaad.mp4.boxes.impl;
 import com.nazarov.radman.jaad.mp4.MP4InputStream;
 import com.nazarov.radman.jaad.mp4.boxes.FullBox;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 
 /**
