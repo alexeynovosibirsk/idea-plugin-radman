@@ -18,7 +18,8 @@
     <change-notes>
         <![CDATA[
       <ul>
-      <li><b>2.0.0</b> Actions added: CheckUrl & Delete</li>
+      <li><b>2.1.0</b> Actions added: Delete bad urls</li>
+      <li><b>2.0.1</b> Actions added: CheckUrl & Delete</li>
       <li><b>1.0.0</b> Release</li>
       </ul>
     ]]>
@@ -36,9 +37,9 @@
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
         <action
-                class="com.nazarov.radman.action.CheckUrlAction"
-                text="CheckUrl"
-                description="Check"
+                class="com.nazarov.radman.action.DeleteNonStreamingUrlsAction"
+                text="Delete Bad Urls"
+                description="Delete non audio streaming urls"
                 icon="Icons.Check_url_icon">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>

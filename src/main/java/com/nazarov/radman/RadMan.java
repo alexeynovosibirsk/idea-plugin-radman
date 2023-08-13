@@ -21,19 +21,15 @@ public class RadMan implements ToolWindowFactory, DumbAware {
 
         final JPanel findPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         final JPanel playPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        final JPanel procPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         findPanel.add(FindPanel.create(toolWindow), BorderLayout.PAGE_START);
         playPanel.add(PlayPanel.create(toolWindow), BorderLayout.PAGE_START);
-//        procPanel.add(ProcPanel.create(toolWindow), BorderLayout.PAGE_START);
 
         Content findPanelContent = ContentFactory.getInstance().createContent(findPanel, "Get Stations", false);
         Content playPanelContent = ContentFactory.getInstance().createContent(playPanel, "Playing Info", false);
-        Content procPanelContent = ContentFactory.getInstance().createContent(procPanel, "Processing Playlist", false);
 
         toolWindow.getContentManager().addContent(findPanelContent);
         toolWindow.getContentManager().addContent(playPanelContent);
-        toolWindow.getContentManager().addContent(procPanelContent);
     }
 
 //TODO: will be used in the future

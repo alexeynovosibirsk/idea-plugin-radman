@@ -7,6 +7,11 @@ import java.net.URL;
 
 public class UrlUtil {
 
+    public static void main(String[] args) {
+        String url = "http://n13.radiojar.com/n4dzb3znn3quv.mp3?rj-ttl=5&rj-tok=AAABiUPmj9EAh_CcxCzF2NKckQ";
+        System.out.println(urlValidator(url));
+    }
+
     public static boolean urlValidator(String string) {
         String[] schemes = {"http", "https"};
         UrlValidator urlValidator = new UrlValidator(schemes);
@@ -26,7 +31,7 @@ public class UrlUtil {
                 }
 
             } catch (Exception e) {
-                ShowMsg.UnknownError();
+                ShowMsg.MessagedError("MalformedURLException. There is an error while getting URL from String.");
             }
 
             return url;

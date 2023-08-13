@@ -24,20 +24,8 @@ public class PlayAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-//        Editor editor = ActionUtil.getEditor(e);
-//        Caret primaryCaret = editor.getCaretModel().getPrimaryCaret();
-//
-//        VisualPosition visualPosition = primaryCaret.getVisualPosition();
-//        setLineAndColumn(visualPosition.getLine(), visualPosition.getColumn());
-//
-//        int start = primaryCaret.getVisualLineStart();
-//        int end = primaryCaret.getVisualLineEnd();
-//        TextRange textRange = new TextRange(start, end);
-//
-//        Document document = editor.getDocument();
 
-//        String allLineUnderCursor = document.getText(textRange);
-        Caret primaryCaret = ActionUtil.getCaret(e);
+        Caret primaryCaret = ActionUtil.getPrimaryCaret(e);
         VisualPosition visualPosition = primaryCaret.getVisualPosition();
         setLineAndColumn(visualPosition.getLine(), visualPosition.getColumn());
 

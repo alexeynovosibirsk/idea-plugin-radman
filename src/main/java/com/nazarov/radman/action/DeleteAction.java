@@ -11,7 +11,6 @@ public class DeleteAction extends AnAction {
     public void actionPerformed(@NotNull AnActionEvent e) {
 
         ActionUtil.deleteString(e);
-
     }
 
     @Override

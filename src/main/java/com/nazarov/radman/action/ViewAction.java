@@ -20,14 +20,13 @@ public class ViewAction extends AnAction {
         Caret primaryCaret = editor.getCaretModel().getCurrentCaret();
         String selected = primaryCaret.getSelectedText();
 
-            URL url = UrlUtil.makeUrl(selected);
-            BrowserUtil.browse(url);
-
             if (selected == null) {
                 ShowMsg.HighlightTheLink();
             } else {
-                String msg = "[" + selected + "]";
-                ShowMsg.UrlIsNotValid(msg);
+                URL url = UrlUtil.makeUrl(selected);
+                if(url != null) {
+                    BrowserUtil.browse(url);
+                }
             }
 
     }
