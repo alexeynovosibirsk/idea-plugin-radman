@@ -13,6 +13,10 @@ import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.nazarov.radman.message.ShowMsg;
+
+import java.util.Collections;
+import java.util.List;
 
 public class ActionUtil {
 
@@ -73,7 +77,6 @@ public class ActionUtil {
         return document.getText(textRange);
     }
 
-
     public static VisualPosition getVisualPosition(int i) {
         return new VisualPosition(i, 1);
     }
@@ -102,6 +105,40 @@ public class ActionUtil {
         );
         // De-select the text range that was just replaced
         primaryCaret.removeSelection();
+    }
+
+    public static int deleteLine(AnActionEvent e, Project project, List<VisualPosition> visualPositionList) {
+        final int[] deletedLines = {0};
+
+        Collections.reverse(visualPositionList);
+        for (VisualPosition v : visualPositionList) {
+
+            Document document = getDocument(e);
+            CaretModel caretModel = getCaretModel(e);
+            Caret currentCaret = caretModel.addCaret(v);
+            if (currentCaret != null) {
+                int start = currentCaret.getVisualLineStart();
+                int end = currentCaret.getVisualLineEnd();
+
+                WriteCommandAction.runWriteCommandAction(project, () -> {
+                            document.deleteString(start, end);
+                            deletedLines[0]++;
+                            caretModel.removeCaret(currentCaret);
+                        }
+                );
+            }
+        }
+
+        return deletedLines[0];
+    }
+
+    public static void resultReport(int processedLines, int deletedLines) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Lines processed:").append(" ");
+        sb.append(processedLines).append(" ");
+        sb.append("Deleted:").append(" ");
+        sb.append(deletedLines);
+        ShowMsg.Result(sb.toString());
     }
 
 }

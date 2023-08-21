@@ -8,26 +8,33 @@ import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Computable;
+import com.nazarov.radman.message.AskParam;
 import com.nazarov.radman.util.ActionUtil;
-import com.nazarov.radman.util.CheckHeader;
-import com.nazarov.radman.util.UrlUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeleteNonStreamingUrlsAction extends AnAction {
+public class DeleteByLanguage extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        progressIndicator(e.getProject(), e);
+
+        String askLanguage = AskParam.askLanguage();
+        if (askLanguage != null) {
+            progressIndicator(e.getProject(), e, askLanguage);
+        }
     }
 
-    public static void progressIndicator(Project project, AnActionEvent e) {
+    private static void progressIndicator(Project project, AnActionEvent e, String askLanguage) {
+        //AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
+        String delimiter = " | ";
+
         final int[] processedLines = {0};
         final int[] deletedLines = {0};
         List<VisualPosition> visualPositionList = new ArrayList<>();
         ProgressManager.getInstance().runProcessWithProgressSynchronously(new Runnable() {
+
             public void run() {
                 ProgressIndicator progressIndicator = ProgressManager.getInstance().getProgressIndicator();
                 int totalLines = ActionUtil.getLinesTotal(e);
@@ -40,29 +47,39 @@ public class DeleteNonStreamingUrlsAction extends AnAction {
                     WriteCommandAction.runWriteCommandAction(project, (Computable<String>) () ->
                             line[0] = ActionUtil.getStringFromEditor(e, v));
 
-                    String url = line[0].split(" ")[0];
+                    String lineUnderCaret = line[0];
 
                     float h = (float) (i * 100 / totalLines) / 100;
                     int currentIndex = i + 1;
                     progressIndicator.setText("Processing " + currentIndex + " of " + totalLines);
-                    progressIndicator.setText2("Url: " + url);
+                    progressIndicator.setText2("Line: " + lineUnderCaret);
                     progressIndicator.setFraction(h); // indicators chunk
                     progressIndicator.checkCanceled();
 
-                    if ((UrlUtil.urlValidator(url)) && (CheckHeader.isAudioStream(url))) {
-                        processedLines[0]++;
-                    } else {
-                        if ((UrlUtil.urlValidator(url)) && (!CheckHeader.isAudioStream(url))) {
-                            processedLines[0]++;
-                            visualPositionList.add(v);
-                        } else {
-                            processedLines[0]++;
-
+                    if (lineUnderCaret.contains("Lang")) {
+                        String[] details = lineUnderCaret.split(delimiter);
+                        for (String s : details) {
+                            if (s.contains("Lang")) {
+                                String[] langArray = s.split(":");
+                                if (langArray.length > 1) {
+                                    processedLines[0]++;
+                                    String lang = langArray[1];
+                                    if (lang.equals(askLanguage)) {
+                                        visualPositionList.add(v);
+                                    }
+                                } else {
+                                    processedLines[0]++;
+                                }
+                            }
                         }
+                    } else {
+                        processedLines[0]++;
                     }
                 }
             }
+
         }, "Processing the list", true, project);
+
         deletedLines[0] = ActionUtil.deleteLine(e, project, visualPositionList);
         ActionUtil.resultReport(processedLines[0], deletedLines[0]);
     }

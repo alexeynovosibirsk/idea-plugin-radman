@@ -48,5 +48,4 @@ public class ShowMsg {
         debug(msg, "Debug message:");
     }
 
-
 }

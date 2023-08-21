@@ -18,6 +18,7 @@
     <change-notes>
         <![CDATA[
       <ul>
+      <li><b>2.2.0</b> ProcessedList with actions added</li>
       <li><b>2.1.0</b> Actions added: Delete bad urls</li>
       <li><b>2.0.1</b> Actions added: CheckUrl & Delete</li>
       <li><b>1.0.0</b> Release</li>
@@ -29,18 +30,44 @@
     <vendor url="https://github.com/alexeynovosibirsk">Alexey Nazarov</vendor>
 
     <actions>
+        <group
+                id="org.intellij.sdk.action.GroupedActions"
+                text="ListProcessing"
+                popup="true"
+                icon="Icons.Check_url_icon">
+
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+
+            <action
+                    class="com.nazarov.radman.action.DeleteByLanguage"
+                    text="Delete By Used Lang"
+                    description="Delete urls using language that you not want"
+                    icon="Icons.Delete_icon">
+            </action>
+            <action
+                    class="com.nazarov.radman.action.DeleteExceptLanguages"
+                    text="Delete Except Used Lang"
+                    description="Delete urls EXCEPT using languages"
+                    icon="Icons.Delete_icon">
+            </action>
+            <action
+                    class="com.nazarov.radman.action.DeleteByBitrate"
+                    text="Delete By Low Bitrates"
+                    description="Delete urls using bitrate lower than you want"
+                    icon="Icons.Delete_icon">
+            </action>
+            <action
+                    class="com.nazarov.radman.action.DeleteNonStreamingUrlsAction"
+                    text="Delete Non Audio Urls"
+                    description="Delete non audio streaming urls"
+                    icon="Icons.Delete_icon">
+            </action>
+        </group>
         <action
                 class="com.nazarov.radman.action.DeleteAction"
                 text="Delete"
                 description="Delete string"
                 icon="Icons.Delete_icon">
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-        </action>
-        <action
-                class="com.nazarov.radman.action.DeleteNonStreamingUrlsAction"
-                text="Delete Bad Urls"
-                description="Delete non audio streaming urls"
-                icon="Icons.Check_url_icon">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
         <action
@@ -66,6 +93,7 @@
         </action>
 
     </actions>
+
 
     <extensions defaultExtensionNs="com.intellij">
 

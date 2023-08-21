@@ -15,9 +15,9 @@ import org.jetbrains.annotations.NotNull;
 import java.net.URL;
 
 public class PlayAction extends AnAction {
+    //AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
 
-    private static final String EXTENSION = "rad";
-
+    //TODO: убрать все поля класса
     private static URL url;
     private static String playingFile;
     private static String nowPlayingUrl;
@@ -52,8 +52,7 @@ public class PlayAction extends AnAction {
     public void update(AnActionEvent e) {
         // Set the availability based on opened filetype
         e.getPresentation().setEnabledAndVisible(
-                ActionUtil.getDefaultExtension(e).equals(EXTENSION)
-        );
+                ActionUtil.getDefaultExtension(e).equals("rad"));
     }
 
     public static URL getUrl() {

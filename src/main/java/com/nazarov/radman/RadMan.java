@@ -30,6 +30,7 @@ public class RadMan implements ToolWindowFactory, DumbAware {
 
         toolWindow.getContentManager().addContent(findPanelContent);
         toolWindow.getContentManager().addContent(playPanelContent);
+
     }
 
 //TODO: will be used in the future

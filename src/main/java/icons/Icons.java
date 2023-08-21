@@ -12,4 +12,5 @@ public class Icons {
   public static final Icon Browser_icon = IconLoader.getIcon("/icons/browser.svg", Icons.class);
   public static final Icon Check_url_icon = IconLoader.getIcon("/icons/checked.svg", Icons.class);
   public static final Icon Delete_icon = IconLoader.getIcon("/icons/delete.svg", Icons.class);
+
 }

@@ -213,7 +213,7 @@ public class FindPanel {
                                                       String limit) {
         boolean isFileCreated = false;
         try {
-            String result = Util.getData(findParameter, limit, crb);
+            String result = Util.getDataFromRadioBrowser(findParameter, limit, crb);
 
             Project project = toolWindow.getProject();
             VirtualFile virtualFile = project.getProjectFile();

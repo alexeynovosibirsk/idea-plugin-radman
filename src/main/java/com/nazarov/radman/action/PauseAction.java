@@ -11,11 +11,11 @@ import org.jetbrains.annotations.NotNull;
 import java.net.URL;
 
 public class PauseAction extends AnAction {
-    private StationPlayer stationPlayer;
+    //AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        stationPlayer = StationPlayer.getInstance();
+        StationPlayer stationPlayer = StationPlayer.getInstance();
         boolean played = stationPlayer.getStatus();
         URL url = PlayAction.getUrl();
         if (url == null) {
@@ -34,12 +34,10 @@ public class PauseAction extends AnAction {
             PlayAction.setUrl(url);
             stationPlayer.play();
         }
-
     }
 
     @Override
     public void update(@NotNull final AnActionEvent e) {
-        stationPlayer = StationPlayer.getInstance();
         // Set the availability based on opened filetype
         e.getPresentation().setEnabledAndVisible(
                 ActionUtil.getDefaultExtension(e).equals("rad"));

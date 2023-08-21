@@ -9,7 +9,6 @@ public class DeleteAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-
         ActionUtil.deleteString(e);
     }
 
@@ -17,8 +16,7 @@ public class DeleteAction extends AnAction {
     public void update(AnActionEvent e) {
         // Set the availability based on opened filetype
         e.getPresentation().setEnabledAndVisible(
-                ActionUtil.getDefaultExtension(e).equals("rad")
-        );
+                ActionUtil.getDefaultExtension(e).equals("rad"));
     }
 
 }

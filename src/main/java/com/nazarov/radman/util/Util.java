@@ -24,11 +24,11 @@ public class Util {
         return findParameter + "-" + timeStamp + ".rad";
     }
 
-    public static String getData(String findParameter, String limit, CommunityRadioBrowser crb) throws IOException {
+    public static String getDataFromRadioBrowser(String findParameter, String limit, CommunityRadioBrowser crb) throws IOException {
 
         String prefix = "https://nl1.api.radio-browser.info/json/stations/search?limit=";
         String genre = "&name=" + findParameter;
-        String urlString = prefix + limit +  genre + "&hidebroken=true&order=clickcount&reverse=true";
+        String urlString = prefix + limit + genre + "&hidebroken=true&order=clickcount&reverse=true";
 
         return parseJson(urlString, crb);
     }
@@ -66,7 +66,7 @@ public class Util {
                     }
                 } else if ("name".equals(fieldName)) {
                     if (crb.isName()) {
-                        name =  spltr + parser.getValueAsString();
+                        name = spltr + parser.getValueAsString();
                     }
                 } else if ("homepage".equals(fieldName)) {
                     if (crb.isHomepage()) {
@@ -103,7 +103,7 @@ public class Util {
         StringBuilder sb = new StringBuilder();
         for (
                 String s : resultList) {
-            sb.append(s + "\n");
+            sb.append(s).append("\n");
             stationsFound++;
         }
 
@@ -113,4 +113,8 @@ public class Util {
     public static int getStationsFound() {
         return stationsFound;
     }
+
 }
+
+
+

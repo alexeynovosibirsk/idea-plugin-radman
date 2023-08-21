@@ -35,8 +35,7 @@ public class ViewAction extends AnAction {
     public void update(AnActionEvent e) {
         // Set the availability based on opened filetype
         e.getPresentation().setEnabledAndVisible(
-                ActionUtil.getDefaultExtension(e).equals("rad")
-        );
+                ActionUtil.getDefaultExtension(e).equals("rad"));
     }
 
 }
