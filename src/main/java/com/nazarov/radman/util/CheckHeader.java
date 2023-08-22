@@ -16,7 +16,8 @@ public class CheckHeader {
 
 
     public static void main(String[] args) {
-        System.out.println("Result: " + CheckHeader.isAudioStream("http://online.radiojazz.ua/RadioJazz"));
+        System.out.println("Result: " + CheckHeader.isAudioStream("http://mscp3.live-streams.nl:8340/jazz-flac.flac"));
+        CheckHeader.printHeader("http://mscp3.live-streams.nl:8340/jazz-flac.flac");
     }
 
     //TODO: реализовать просмотр хедеров

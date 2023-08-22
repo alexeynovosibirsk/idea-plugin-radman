@@ -44,7 +44,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.googlecode.soundlibs/jlayer
     implementation group: 'com.googlecode.soundlibs', name: 'jlayer', version: '1.0.1.4'
     // https://mvnrepository.com/artifact/org.springframework/spring-webflux
-    implementation group: 'org.springframework', name: 'spring-webflux', version: '6.0.9'
+  //  implementation group: 'org.springframework', name: 'spring-webflux', version: '6.0.9'
     // https://mvnrepository.com/artifact/commons-validator/commons-validator
     implementation group: 'commons-validator', name: 'commons-validator', version: '1.7'
 
