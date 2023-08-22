@@ -39,24 +39,28 @@
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
 
             <action
+                    id="com.nazarov.radman.action.DeleteByLanguage"
                     class="com.nazarov.radman.action.DeleteByLanguage"
                     text="Delete By Used Lang"
                     description="Delete urls using language that you not want"
                     icon="Icons.Delete_icon">
             </action>
             <action
+                    id="com.nazarov.radman.action.DeleteExceptLanguages"
                     class="com.nazarov.radman.action.DeleteExceptLanguages"
                     text="Delete Except Used Lang"
                     description="Delete urls EXCEPT using languages"
                     icon="Icons.Delete_icon">
             </action>
             <action
+                    id="com.nazarov.radman.action.DeleteByBitrate"
                     class="com.nazarov.radman.action.DeleteByBitrate"
                     text="Delete By Low Bitrates"
                     description="Delete urls using bitrate lower than you want"
                     icon="Icons.Delete_icon">
             </action>
             <action
+                    id="com.nazarov.radman.action.DeleteNonStreamingUrlsAction"
                     class="com.nazarov.radman.action.DeleteNonStreamingUrlsAction"
                     text="Delete Non Audio Urls"
                     description="Delete non audio streaming urls"
@@ -64,6 +68,7 @@
             </action>
         </group>
         <action
+                id="com.nazarov.radman.action.DeleteAction"
                 class="com.nazarov.radman.action.DeleteAction"
                 text="Delete"
                 description="Delete string"
@@ -71,6 +76,7 @@
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
         <action
+                id="com.nazarov.radman.action.ViewAction"
                 class="com.nazarov.radman.action.ViewAction"
                 text="View in Browser"
                 description="Open selected url in browser"
@@ -78,13 +84,14 @@
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
         <action
+                id="com.nazarov.radman.action.PauseAction"
                 class="com.nazarov.radman.action.PauseAction"
                 text="Pause"
                 description="Stop playing"
                 icon="Icons.Pause_icon">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
-        <action id="EditorBasics.EditorIllustrationAction"
+        <action id="com.nazarov.radman.action.PlayAction"
                 class="com.nazarov.radman.action.PlayAction"
                 text="Play"
                 description="Playing selected url"
