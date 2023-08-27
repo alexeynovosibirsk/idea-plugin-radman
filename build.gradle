@@ -46,6 +46,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework/spring-webflux
   //  implementation group: 'org.springframework', name: 'spring-webflux', version: '6.0.9'
     // https://mvnrepository.com/artifact/commons-validator/commons-validator
+    implementation 'com.tianscar.javasound:javasound-aac:0.9.8'
     implementation group: 'commons-validator', name: 'commons-validator', version: '1.7'
 
 }

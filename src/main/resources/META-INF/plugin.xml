@@ -18,6 +18,7 @@
     <change-notes>
         <![CDATA[
       <ul>
+      <li><b>2.2.1</b> Fixing bug with AAC+ via changing Jaad to javasound-aac</li>
       <li><b>2.2.0</b> ProcessedList with actions added</li>
       <li><b>2.1.0</b> Actions added: Delete bad urls</li>
       <li><b>2.0.1</b> Actions added: CheckUrl & Delete</li>
@@ -70,7 +71,7 @@
         <action
                 id="com.nazarov.radman.action.DeleteAction"
                 class="com.nazarov.radman.action.DeleteAction"
-                text="Delete"
+                text="Delete Line Under Cursor"
                 description="Delete string"
                 icon="Icons.Delete_icon">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>

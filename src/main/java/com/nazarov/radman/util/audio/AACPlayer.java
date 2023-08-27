@@ -1,9 +1,8 @@
 package com.nazarov.radman.util.audio;
 
-import com.nazarov.radman.jaad.aac.Decoder;
-import com.nazarov.radman.jaad.aac.SampleBuffer;
-import com.nazarov.radman.jaad.adts.ADTSDemultiplexer;
-
+import net.sourceforge.jaad.SampleBuffer;
+import net.sourceforge.jaad.aac.Decoder;
+import net.sourceforge.jaad.adts.ADTSDemultiplexer;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.SourceDataLine;
@@ -16,7 +15,8 @@ public class AACPlayer {
         byte[] b;
         try {
             final ADTSDemultiplexer adts = new ADTSDemultiplexer(in);
-            final Decoder dec = new Decoder(adts.getDecoderSpecificInfo());
+
+            Decoder dec = Decoder.create(adts.getDecoderInfo());
             final SampleBuffer buf = new SampleBuffer();
             while (true) {
                 b = adts.readNextFrame();
