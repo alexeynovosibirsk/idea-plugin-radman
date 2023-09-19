@@ -1,0 +1,28 @@
+
+    //TODO: will be used in the future
+//            String[] STRING_VALUES = {"Yes", "NO"};
+//            ComboBox<String> eComboBox = new ComboBox<>(STRING_VALUES);
+//            eComboBox.setEditable(true);
+//            eComboBox.setEditor(new BasicComboBoxEditor(){
+//                @Override
+//                protected JTextField createEditorComponent() {
+//                    ExtendableTextField ecbEditor = new ExtendableTextField();
+//                    //       ecbEditor.addExtension(browseExtension);
+//                    ecbEditor.setBorder(null);
+//                    return ecbEditor;
+//                }
+//            });
+
+    //TODO: Use when getting url streams from some new resources
+//    private String webClient(String urlAsString) {
+//
+//        WebClient client = WebClient.create();
+//        WebClient.ResponseSpec responseSpec = client.get()
+//                .uri(urlAsString)
+//                .retrieve();
+//        String responseBody = responseSpec.bodyToMono(String.class).block();
+//
+//        return responseBody;
+//    }
+//
+}

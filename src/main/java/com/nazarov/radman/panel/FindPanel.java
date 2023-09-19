@@ -76,13 +76,13 @@ public class FindPanel {
 
                 boolean isFileCreated = findInCommunityRadioBrowser(crb, toolWindow, genre, limit.getText());
                 if (isFileCreated) {
-                    ShowMsg.RequestCompleted("Stations found: " + Util.getStationsFound());
+                    ShowMsg.dialog("Stations found: " + Util.getStationsFound(), ShowMsg.REQUEST_COMPLETED);
                 } else {
-                    ShowMsg.RequestCompleted("There is no results for " + genre);
+                    ShowMsg.dialog("There is no results for " + genre, ShowMsg.REQUEST_COMPLETED);
                 }
 
             } else {
-                ShowMsg.QueryParameterMissed();
+                ShowMsg.dialog(ShowMsg.QUERY_PARAMETER_IS_MISSED, ShowMsg.QUERY_PARAMETER_IS_MISSED_TITLE);
             }
         });
 

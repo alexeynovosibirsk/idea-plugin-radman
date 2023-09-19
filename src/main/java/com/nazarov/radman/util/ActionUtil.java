@@ -3,11 +3,7 @@ package com.nazarov.radman.util;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.openapi.editor.Caret;
-import com.intellij.openapi.editor.CaretModel;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.VisualPosition;
+import com.intellij.openapi.editor.*;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.project.Project;
@@ -138,7 +134,7 @@ public class ActionUtil {
         sb.append(processedLines).append(" ");
         sb.append("Deleted:").append(" ");
         sb.append(deletedLines);
-        ShowMsg.Result(sb.toString());
+        ShowMsg.dialog(sb.toString(), ShowMsg.RESULT);
     }
 
 }

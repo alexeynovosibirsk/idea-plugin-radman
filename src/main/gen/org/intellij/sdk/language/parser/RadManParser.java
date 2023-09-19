@@ -8,23 +8,8 @@ import com.intellij.lang.PsiBuilder.Marker;
 import com.intellij.lang.PsiParser;
 import com.intellij.psi.tree.IElementType;
 
-import static com.intellij.lang.parser.GeneratedParserUtilBase.TRUE_CONDITION;
-import static com.intellij.lang.parser.GeneratedParserUtilBase._COLLAPSE_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase._NONE_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase._NOT_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.adapt_builder_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.consumeToken;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.current_position_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.empty_element_parsed_guard_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.enter_section_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.exit_section_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.recursion_guard_;
-import static org.intellij.sdk.language.psi.RadManTypes.COMMENT;
-import static org.intellij.sdk.language.psi.RadManTypes.CRLF;
-import static org.intellij.sdk.language.psi.RadManTypes.KEY;
-import static org.intellij.sdk.language.psi.RadManTypes.PROPERTY;
-import static org.intellij.sdk.language.psi.RadManTypes.SEPARATOR;
-import static org.intellij.sdk.language.psi.RadManTypes.VALUE;
+import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
+import static org.intellij.sdk.language.psi.RadManTypes.*;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class RadManParser implements PsiParser, LightPsiParser {

@@ -27,25 +27,14 @@ public class UrlUtil {
                 if (urlValidator(string)) {
                     url = new URL(string);
                 } else {
-                    ShowMsg.UrlIsNotValid();
+                    ShowMsg.dialog(ShowMsg.URL_IS_NOT_VALID, ShowMsg.URL_IS_NOT_VALID_TITLE);
                 }
 
             } catch (Exception e) {
-                ShowMsg.MessagedError("MalformedURLException. There is an error while getting URL from String.");
+                ShowMsg.messagedError(ShowMsg.MALFORMED_URL_EXCEPTION);
             }
 
             return url;
     }
 
-    //TODO: Use when getting url streams from some new resources
-//    private String webClient(String urlAsString) {
-//
-//        WebClient client = WebClient.create();
-//        WebClient.ResponseSpec responseSpec = client.get()
-//                .uri(urlAsString)
-//                .retrieve();
-//        String responseBody = responseSpec.bodyToMono(String.class).block();
-//
-//        return responseBody;
-//    }
 }

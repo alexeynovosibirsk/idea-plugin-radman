@@ -21,7 +21,7 @@ public class ViewAction extends AnAction {
         String selected = primaryCaret.getSelectedText();
 
             if (selected == null) {
-                ShowMsg.HighlightTheLink();
+                ShowMsg.dialog(ShowMsg.HIGHLIGTH_THE_LINK, ShowMsg.HIGHLIGTH_THE_LINK_TITLE);
             } else {
                 URL url = UrlUtil.makeUrl(selected);
                 if(url != null) {

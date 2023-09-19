@@ -11,47 +11,58 @@ import com.intellij.psi.PsiFileFactory;
 import com.intellij.ui.JBColor;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class PlayPanel {
+    public static final String NO_METADATA = "The radio station is not provide any metadata";
+    public static final String NOTHING_IS_PLAYED = "Nothing is played now...";
+    public static final String FILENAME = "stub.rad";
+    public static final String TXT = "stub";
+    public static final String FIRST_PIPE = "|";
+    public static final String DOUBLE_WHITESPACES = "  ";
+    public static final String CLEAR = "";
 
-    public static JLabel nowPlayingFile = new JLabel();
-    static JLabel nowPlayingUrl = new JLabel();
 
+    private static final JLabel metadata = new JLabel();
+    private static final JLabel nowPlayingFile = new JLabel();
+    private static final JLabel nowPlayingUrl = new JLabel();
     private static Pair<Integer, Integer> lineAndColumn;
-
     public static void setLineAndColumn(int line, int column) {
         lineAndColumn = new Pair<>(line, column);
     }
-
-    static PsiFile psiFile;
-
+    private static PsiFile psiFile;
     public static void setPsiFile(PsiFile pFile) {
-        psiFile = pFile;
+        if (pFile != null) {
+            psiFile = pFile;
+        }
     }
-
     public static void setNowPlayingFile(String string) {
-        nowPlayingFile.setText(string);
+        if (string != null) {
+            nowPlayingFile.setText(string);
+        }
     }
-
     public static void setNowPlayingUrl(String string) {
-        // get all except station url:
-        nowPlayingUrl.setText(string);
+        if (string != null) {
+            String result = string.replace(FIRST_PIPE, DOUBLE_WHITESPACES).trim();
+            nowPlayingUrl.setText(result);
+        }
+    }
+    public static void setMetadata(String string) {
+        if (string != null) {
+            metadata.setText(string);
+        } else {
+            metadata.setText(NO_METADATA);
+        }
     }
 
     @NotNull
     public static JPanel create(ToolWindow toolWindow) {
-        JLabel label = new JLabel();
-        label.setText("Now playing: ");
-        JPanel jPanel = new JPanel();
-
         Color myColor = new JBColor(Color.magenta, new Color(172, 62, 241));
         nowPlayingFile.setForeground(myColor);
-        nowPlayingFile.setText("nothing...");
+        nowPlayingFile.setText(NOTHING_IS_PLAYED);
 
         nowPlayingFile.addMouseListener(new MouseAdapter() {
             @Override
@@ -59,21 +70,25 @@ public class PlayPanel {
                 final Project project = toolWindow.getProject();
                 if (psiFile == null) { //this is only for automating test.
                     final PsiFileFactory factory = PsiFileFactory.getInstance(project);
-                    psiFile = factory.createFileFromText("stub.rad", PlainTextFileType.INSTANCE, "stub");
+                    psiFile = factory.createFileFromText(FILENAME, PlainTextFileType.INSTANCE, TXT);
                 }
                 VirtualFile virtualFile = psiFile.getVirtualFile();
                 new OpenFileDescriptor(project, virtualFile, lineAndColumn.first, lineAndColumn.second).navigate(true);
             }
         });
 
+        final JPanel jPanel = new JPanel();
+        jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
+
         Color myColor2 = new JBColor(Color.magenta, new Color(60, 141, 250));
         nowPlayingUrl.setForeground(myColor2);
-        nowPlayingUrl.setText("");
+        nowPlayingUrl.setText(CLEAR);
 
-        jPanel.add(label);
         jPanel.add(nowPlayingFile);
         jPanel.add(nowPlayingUrl);
+        jPanel.add(metadata);
 
         return jPanel;
     }
+
 }

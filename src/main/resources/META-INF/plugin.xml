@@ -18,6 +18,7 @@
     <change-notes>
         <![CDATA[
       <ul>
+      <li><b>2.3.0</b> Artist and song info added to Playing Info panel</li>
       <li><b>2.2.2</b> Fixing bug ListProcessing group visibility</li>
       <li><b>2.2.1</b> Fixing bug with AAC+ via changing Jaad to javasound-aac</li>
       <li><b>2.2.0</b> ProcessedList with actions added</li>

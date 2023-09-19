@@ -3,8 +3,10 @@ package com.nazarov.radman.action;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.nazarov.radman.message.ShowMsg;
+import com.nazarov.radman.model.PlayingInfo;
 import com.nazarov.radman.panel.PlayPanel;
 import com.nazarov.radman.util.ActionUtil;
+import com.nazarov.radman.util.Metadata;
 import com.nazarov.radman.util.audio.StationPlayer;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,24 +17,31 @@ public class PauseAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
+        PlayingInfo playingInfo = PlayingInfo.getInstance();
+        Metadata metadata = Metadata.getInstance();
         StationPlayer stationPlayer = StationPlayer.getInstance();
         boolean played = stationPlayer.getStatus();
-        URL url = PlayAction.getUrl();
+        URL url = playingInfo.getUrl();
         if (url == null) {
-            ShowMsg.NothingIsPlayed();
+            ShowMsg.dialog(ShowMsg.NOTHING_IS_PLAYED, ShowMsg.NOTHING_IS_PLAYED_TITLE);
         }
         if (played) {
             stationPlayer.stopPlay();
-            PlayPanel.setNowPlayingFile("nothing...");
-            PlayPanel.setNowPlayingUrl("");
+            //TODO: Think about to invoke the below objects without setters
+            PlayPanel.setNowPlayingFile(PlayPanel.NOTHING_IS_PLAYED);
+            PlayPanel.setNowPlayingUrl(PlayPanel.CLEAR);
+            PlayPanel.setMetadata(PlayPanel.CLEAR);
+            metadata.stopMetadata();
         } else {
-            String playingFile = PlayAction.getPlayingFile();
+            String playingFile = playingInfo.getPlayingFile();
             PlayPanel.setNowPlayingFile(playingFile);
-            String playingUrl = PlayAction.getNowPlayingUrl();
+            String playingUrl = playingInfo.getNowPlayingInfo();
             PlayPanel.setNowPlayingUrl(playingUrl);
 
-            PlayAction.setUrl(url);
+            playingInfo.setUrl(url);
             stationPlayer.play();
+
+            metadata.startMetadata();
         }
     }
 
