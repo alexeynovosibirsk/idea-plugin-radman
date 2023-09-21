@@ -6,6 +6,10 @@ import com.nazarov.radman.validate.CharacterValidator;
 import com.nazarov.radman.validate.IntegerValidator;
 import icons.Icons;
 
+/**
+ * Здесь параметры запрашиваемые при вызове экшена из группы обработки списка
+ */
+
 public class AskParam {
 
     public static int askBitrate() {

@@ -38,6 +38,13 @@ public class ActionUtil {
         return caretModel.getPrimaryCaret();
     }
 
+    public static void removeAllCarets(CaretModel caretModel) {
+        List<Caret> caretList = caretModel.getAllCarets();
+        for(Caret c : caretList) {
+            caretModel.removeCaret(c);
+        }
+    }
+
     public static int getLinesTotal(AnActionEvent e) {
         Document document = getDocument(e);
 
@@ -73,6 +80,21 @@ public class ActionUtil {
         return document.getText(textRange);
     }
 
+    public static String getStringFromEditor(AnActionEvent e, Caret c, VisualPosition v) {
+        Editor editor = getEditor(e);
+        CaretModel caretModel = editor.getCaretModel();
+        int start = c.getVisualLineStart();
+        int end = c.getVisualLineEnd();
+        caretModel.removeCaret(c);
+
+        caretModel.addCaret(v);
+
+        TextRange textRange = new TextRange(start, end);
+        Document document = getDocument(e);
+
+        return document.getText(textRange);
+    }
+
     public static VisualPosition getVisualPosition(int i) {
         return new VisualPosition(i, 1);
     }
@@ -89,7 +111,6 @@ public class ActionUtil {
         return defaultExtension;
     }
 
-
     public static void deleteString(AnActionEvent e) {
         Project project = e.getProject();
         Document document = getDocument(e);
@@ -103,7 +124,7 @@ public class ActionUtil {
         primaryCaret.removeSelection();
     }
 
-    public static int deleteLine(AnActionEvent e, Project project, List<VisualPosition> visualPositionList) {
+    public static int deleteLines(AnActionEvent e, Project project, List<VisualPosition> visualPositionList) {
         final int[] deletedLines = {0};
 
         Collections.reverse(visualPositionList);
@@ -135,6 +156,28 @@ public class ActionUtil {
         sb.append("Deleted:").append(" ");
         sb.append(deletedLines);
         ShowMsg.dialog(sb.toString(), ShowMsg.RESULT);
+    }
+
+    public static void moveStringToFirst(AnActionEvent e) {
+        Project project = e.getProject();
+        Document document = getDocument(e);
+        Caret primaryCaret = getPrimaryCaret(e);
+        int start = primaryCaret.getVisualLineStart();
+        int end = primaryCaret.getVisualLineEnd();
+        TextRange textRange = new TextRange(start, end);
+        String string = document.getText(textRange);
+        WriteCommandAction.runWriteCommandAction(project, () ->
+                document.deleteString(start, end)
+        );
+
+        LogicalPosition l = new LogicalPosition(0,0);
+        primaryCaret.moveToLogicalPosition(l);
+
+        WriteCommandAction.runWriteCommandAction(project, () ->
+                document.insertString(0, string)
+        );
+        // De-select the text range that was just replaced
+        primaryCaret.removeSelection();
     }
 
 }

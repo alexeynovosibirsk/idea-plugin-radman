@@ -9,12 +9,17 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileFactory;
 import com.intellij.ui.JBColor;
+import com.nazarov.radman.model.PlayingInfo;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+/**
+ * Panel "Playing info"
+ */
 
 public class PlayPanel {
     public static final String NO_METADATA = "The radio station is not provide any metadata";
@@ -29,27 +34,27 @@ public class PlayPanel {
     private static final JLabel metadata = new JLabel();
     private static final JLabel nowPlayingFile = new JLabel();
     private static final JLabel nowPlayingUrl = new JLabel();
-    private static Pair<Integer, Integer> lineAndColumn;
-    public static void setLineAndColumn(int line, int column) {
-        lineAndColumn = new Pair<>(line, column);
-    }
     private static PsiFile psiFile;
+
     public static void setPsiFile(PsiFile pFile) {
         if (pFile != null) {
             psiFile = pFile;
         }
     }
+
     public static void setNowPlayingFile(String string) {
         if (string != null) {
             nowPlayingFile.setText(string);
         }
     }
+
     public static void setNowPlayingUrl(String string) {
         if (string != null) {
             String result = string.replace(FIRST_PIPE, DOUBLE_WHITESPACES).trim();
             nowPlayingUrl.setText(result);
         }
     }
+
     public static void setMetadata(String string) {
         if (string != null) {
             metadata.setText(string);
@@ -73,9 +78,11 @@ public class PlayPanel {
                     psiFile = factory.createFileFromText(FILENAME, PlainTextFileType.INSTANCE, TXT);
                 }
                 VirtualFile virtualFile = psiFile.getVirtualFile();
-                new OpenFileDescriptor(project, virtualFile, lineAndColumn.first, lineAndColumn.second).navigate(true);
+                Pair<Integer, Integer> pair = PlayingInfo.getCursorPositionLineAndColumn();
+                new OpenFileDescriptor(project, virtualFile, pair.first, pair.second).navigate(true);
             }
         });
+
 
         final JPanel jPanel = new JPanel();
         jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));

@@ -1,4 +1,4 @@
-package com.nazarov.radman.action;
+package com.nazarov.radman.action.delete;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteByBitrate extends AnAction {
-
+    //AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
 
@@ -27,7 +27,7 @@ public class DeleteByBitrate extends AnAction {
     }
 
     private static void progressIndicator(Project project, AnActionEvent e, int askBitrate) {
-        //AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
+
         String delimiter = " | ";
 
         final int[] processedLines = {0};
@@ -77,7 +77,7 @@ public class DeleteByBitrate extends AnAction {
 
         }, "Processing the list", true, project);
 
-        deletedLines[0] = ActionUtil.deleteLine(e, project, visualPositionList);
+        deletedLines[0] = ActionUtil.deleteLines(e, project, visualPositionList);
         ActionUtil.resultReport(processedLines[0], deletedLines[0]);
     }
 

@@ -16,6 +16,7 @@ public class ShowMsg {
     public static final String QUERY_PARAMETER_IS_MISSED = "Please fill the genre";
     public static final String QUERY_PARAMETER_IS_MISSED_TITLE = "Query Parameter Is Missed!";
     public static final String ERROR_TITLE = "The Error!";
+    public static final String NOTHING_TO_PLAY = "There is nothing to play";
 
     public static void dialog(String msg, String title) {
         Messages.showMessageDialog(msg, title, Icons.Headphones_icon);

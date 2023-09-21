@@ -1,16 +1,10 @@
-package com.nazarov.radman.action;
+package com.nazarov.radman.action.group;
 
-import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.nazarov.radman.util.ActionUtil;
-import org.jetbrains.annotations.NotNull;
 
-public class DeleteAction extends AnAction {
-
-    @Override
-    public void actionPerformed(@NotNull AnActionEvent e) {
-        ActionUtil.deleteString(e);
-    }
+public class ListProcessingGroup extends DefaultActionGroup {
 
     @Override
     public void update(AnActionEvent e) {
@@ -18,5 +12,4 @@ public class DeleteAction extends AnAction {
         e.getPresentation().setEnabledAndVisible(
                 ActionUtil.getDefaultExtension(e).equals("rad"));
     }
-
 }

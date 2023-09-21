@@ -1,4 +1,3 @@
-
     //TODO: will be used in the future
 //            String[] STRING_VALUES = {"Yes", "NO"};
 //            ComboBox<String> eComboBox = new ComboBox<>(STRING_VALUES);
@@ -26,3 +25,35 @@
 //    }
 //
 }
+
+//TODO: for debug
+
+    public static void main(String[] args) {
+        URI streamUri = URI.create("https://live.radiospinner.com/smooth-vocal-jazz-96");
+
+        HttpClient client = HttpClient.newBuilder().build();
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(streamUri)
+                .header("Icy-MetaData", "1") // instruct the server, that we want the metadata
+                .build();
+        client.sendAsync(request, BodyHandlers.ofInputStream())
+                .thenAccept(resp -> {
+                    HttpHeaders headers = resp.headers();
+                    int metaInterval = headers.firstValue("icy-metaint").map(Integer::parseInt).orElse(DEFAULT_METADATA_INTERVAL);
+
+                    try (InputStream stream = resp.body()) {
+                        while (true) {
+                          //  stream.skipNBytes(metaInterval);
+                            String meta = readMetaData(stream);
+                            if (!meta.isEmpty() && meta.startsWith("StreamTitle")) {
+
+                                System.out.println(meta.substring("StreamTitle=".length(), meta.indexOf(';')));
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .join();
+    }

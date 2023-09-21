@@ -18,6 +18,7 @@
     <change-notes>
         <![CDATA[
       <ul>
+      <li><b>2.4.0</b> Action added: Move To First</li>
       <li><b>2.3.0</b> Artist and song info added to Playing Info panel</li>
       <li><b>2.2.2</b> Fixing bug ListProcessing group visibility</li>
       <li><b>2.2.1</b> Fixing bug with AAC+ via changing Jaad to javasound-aac</li>
@@ -34,51 +35,44 @@
 
     <actions>
         <group
-                id="com.nazarov.radman.action.ListProcessingGroup"
-                class="com.nazarov.radman.action.ListProcessingGroup"
+                id="com.nazarov.radman.action.group.ListProcessingGroup"
+                class="com.nazarov.radman.action.group.ListProcessingGroup"
                 text="ListProcessing"
                 popup="true"
-                icon="Icons.Check_url_icon">
+                icon="Icons.List_icon">
 
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
 
             <action
-                    id="com.nazarov.radman.action.DeleteByLanguage"
-                    class="com.nazarov.radman.action.DeleteByLanguage"
+                    id="com.nazarov.radman.action.delete.DeleteByLanguage"
+                    class="com.nazarov.radman.action.delete.DeleteByLanguage"
                     text="Delete By Used Lang"
                     description="Delete urls using language that you not want"
                     icon="Icons.Delete_icon">
             </action>
             <action
-                    id="com.nazarov.radman.action.DeleteExceptLanguages"
-                    class="com.nazarov.radman.action.DeleteExceptLanguages"
+                    id="com.nazarov.radman.action.delete.DeleteExceptLanguages"
+                    class="com.nazarov.radman.action.delete.DeleteExceptLanguages"
                     text="Delete Except Used Lang"
                     description="Delete urls EXCEPT using languages"
                     icon="Icons.Delete_icon">
             </action>
             <action
-                    id="com.nazarov.radman.action.DeleteByBitrate"
-                    class="com.nazarov.radman.action.DeleteByBitrate"
+                    id="com.nazarov.radman.action.delete.DeleteByBitrate"
+                    class="com.nazarov.radman.action.delete.DeleteByBitrate"
                     text="Delete By Low Bitrates"
                     description="Delete urls using bitrate lower than you want"
                     icon="Icons.Delete_icon">
             </action>
             <action
-                    id="com.nazarov.radman.action.DeleteNonStreamingUrlsAction"
-                    class="com.nazarov.radman.action.DeleteNonStreamingUrlsAction"
+                    id="com.nazarov.radman.action.delete.DeleteNonStreamingUrlsAction"
+                    class="com.nazarov.radman.action.delete.DeleteNonStreamingUrlsAction"
                     text="Delete Non Audio Urls"
                     description="Delete non audio streaming urls"
                     icon="Icons.Delete_icon">
             </action>
         </group>
-        <action
-                id="com.nazarov.radman.action.DeleteAction"
-                class="com.nazarov.radman.action.DeleteAction"
-                text="Delete Line Under Cursor"
-                description="Delete string"
-                icon="Icons.Delete_icon">
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-        </action>
+
         <action
                 id="com.nazarov.radman.action.ViewAction"
                 class="com.nazarov.radman.action.ViewAction"
@@ -88,15 +82,44 @@
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
         <action
+                id="com.nazarov.radman.action.delete.DeleteAction"
+                class="com.nazarov.radman.action.delete.DeleteAction"
+                text="Delete Line Under Cursor"
+                description="Delete string"
+                icon="Icons.Delete_icon">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <action
+                id="com.nazarov.radman.action.manipulation.MoveToFirst"
+                class="com.nazarov.radman.action.manipulation.MoveToFirst"
+                text="Move To First"
+                description="Move the string to the first position"
+                icon="Icons.MoveToFirst_icon">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <action
                 id="com.nazarov.radman.action.PauseAction"
                 class="com.nazarov.radman.action.PauseAction"
                 text="Pause"
                 description="Stop playing"
                 icon="Icons.Pause_icon">
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="alt shift 1"/>
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
-        <action id="com.nazarov.radman.action.PlayAction"
-                class="com.nazarov.radman.action.PlayAction"
+        <action id="com.nazarov.radman.action.play.PlayNextAction"
+                class="com.nazarov.radman.action.play.PlayNextAction"
+                text="PlayNext"
+                description="Playing selected url"
+                icon="Icons.Play_icon">
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="alt shift 2"/>
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        </action>
+        <action id="com.nazarov.radman.action.play.PlayAction"
+                class="com.nazarov.radman.action.play.PlayAction"
                 text="Play"
                 description="Playing selected url"
                 icon="Icons.Play_icon">

@@ -12,6 +12,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
 
+/**
+ * Action "Pause"
+ */
+
 public class PauseAction extends AnAction {
     //AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
 
@@ -35,7 +39,7 @@ public class PauseAction extends AnAction {
         } else {
             String playingFile = playingInfo.getPlayingFile();
             PlayPanel.setNowPlayingFile(playingFile);
-            String playingUrl = playingInfo.getNowPlayingInfo();
+            String playingUrl = playingInfo.getRadioStationInfo();
             PlayPanel.setNowPlayingUrl(playingUrl);
 
             playingInfo.setUrl(url);

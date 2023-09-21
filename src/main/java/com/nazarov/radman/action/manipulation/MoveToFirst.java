@@ -1,10 +1,16 @@
-package com.nazarov.radman.action;
+package com.nazarov.radman.action.manipulation;
 
+import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.nazarov.radman.util.ActionUtil;
+import org.jetbrains.annotations.NotNull;
 
-public class ListProcessingGroup extends DefaultActionGroup {
+public class MoveToFirst extends AnAction {
+
+    @Override
+    public void actionPerformed(@NotNull AnActionEvent e) {
+        ActionUtil.moveStringToFirst(e);
+    }
 
     @Override
     public void update(AnActionEvent e) {
@@ -12,4 +18,5 @@ public class ListProcessingGroup extends DefaultActionGroup {
         e.getPresentation().setEnabledAndVisible(
                 ActionUtil.getDefaultExtension(e).equals("rad"));
     }
+
 }
