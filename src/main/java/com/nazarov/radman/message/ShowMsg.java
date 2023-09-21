@@ -7,7 +7,7 @@ public class ShowMsg {
     public static final String MALFORMED_URL_EXCEPTION = "MalformedURLException. There is an error while getting URL from String.";
     public static final String RESULT = "Radlist completed:";
     public static final String REQUEST_COMPLETED = "Request Completed.";
-    public static final String URL_IS_NOT_VALID = "Url is not valid or this is not an url";
+    public static final String URL_IS_NOT_VALID = "Url is not valid or this is not an url: ";
     public static final String URL_IS_NOT_VALID_TITLE = "Url Is Not Valid!";
     public static final String NOTHING_IS_PLAYED = "Nothing is played. No receiving stream.";
     public static final String NOTHING_IS_PLAYED_TITLE = "Nothing to stop";

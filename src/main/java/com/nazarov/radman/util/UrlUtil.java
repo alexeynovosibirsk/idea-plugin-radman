@@ -27,7 +27,7 @@ public class UrlUtil {
                 if (urlValidator(string)) {
                     url = new URL(string);
                 } else {
-                    ShowMsg.dialog(ShowMsg.URL_IS_NOT_VALID, ShowMsg.URL_IS_NOT_VALID_TITLE);
+                    ShowMsg.dialog(ShowMsg.URL_IS_NOT_VALID + url, ShowMsg.URL_IS_NOT_VALID_TITLE);
                 }
 
             } catch (Exception e) {
