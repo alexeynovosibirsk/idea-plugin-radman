@@ -6,9 +6,9 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.editor.Caret;
 import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.ui.Messages;
+import com.nazarov.radman.message.ShowMsg;
+import com.nazarov.radman.util.ActionUtil;
 import com.nazarov.radman.util.UrlUtil;
-import org.apache.commons.validator.routines.UrlValidator;
 
 import java.net.URL;
 
@@ -20,32 +20,22 @@ public class ViewAction extends AnAction {
         Caret primaryCaret = editor.getCaretModel().getCurrentCaret();
         String selected = primaryCaret.getSelectedText();
 
-        String[] schemes = {"http", "https"};
-        UrlValidator urlValidator = new UrlValidator(schemes);
-
-        if (urlValidator.isValid(selected)) {
-            URL url = UrlUtil.makeUrl(selected);
-            BrowserUtil.browse(url);
-        } else {
-
             if (selected == null) {
-                message("In order to open an url link you have to highlight the link via cursor!");
+                ShowMsg.dialog(ShowMsg.HIGHLIGTH_THE_LINK, ShowMsg.HIGHLIGTH_THE_LINK_TITLE);
             } else {
-                message("[" + selected + "]");
+                URL url = UrlUtil.makeUrl(selected);
+                if(url != null) {
+                    BrowserUtil.browse(url);
+                }
             }
-        }
+
     }
 
     @Override
     public void update(AnActionEvent e) {
         // Set the availability based on opened filetype
         e.getPresentation().setEnabledAndVisible(
-                ActionUtil.getDefaultExtenstion(e).equals("rad")
-        );
-    }
-
-    private void message(String string) {
-        Messages.showErrorDialog(string, "URL IS NOT VALID!");
+                ActionUtil.getDefaultExtension(e).equals("rad"));
     }
 
 }

@@ -2,47 +2,58 @@ package com.nazarov.radman.action;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.ui.Messages;
-import com.nazarov.radman.RadMan;
+import com.nazarov.radman.message.ShowMsg;
+import com.nazarov.radman.model.PlayingInfo;
+import com.nazarov.radman.panel.PlayPanel;
+import com.nazarov.radman.util.ActionUtil;
+import com.nazarov.radman.util.Metadata;
 import com.nazarov.radman.util.audio.StationPlayer;
-import icons.Icons;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
 
+/**
+ * Action "Pause"
+ */
+
 public class PauseAction extends AnAction {
-    private StationPlayer stationPlayer;
+    //AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        stationPlayer = StationPlayer.getInstance();
+        PlayingInfo playingInfo = PlayingInfo.getInstance();
+        Metadata metadata = Metadata.getInstance();
+        StationPlayer stationPlayer = StationPlayer.getInstance();
         boolean played = stationPlayer.getStatus();
-        URL url = PlayAction.getUrl();
+        URL url = playingInfo.getUrl();
         if (url == null) {
-            Messages.showMessageDialog("Nothing is played", "Not Found Radio for Stopping!", Icons.Headphones_icon);
+            ShowMsg.dialog(ShowMsg.NOTHING_IS_PLAYED, ShowMsg.NOTHING_IS_PLAYED_TITLE);
         }
         if (played) {
             stationPlayer.stopPlay();
-            RadMan.setNowPlayingFile("nothing...");
-            RadMan.setNowPlayingUrl("");
+            //TODO: Think about to invoke the below objects without setters
+            PlayPanel.setNowPlayingFile(PlayPanel.NOTHING_IS_PLAYED);
+            PlayPanel.setNowPlayingUrl(PlayPanel.CLEAR);
+            PlayPanel.setMetadata(PlayPanel.CLEAR);
+            metadata.stopMetadata();
         } else {
-            String playingFile = PlayAction.getPlayingFile();
-            RadMan.setNowPlayingFile(playingFile);
-            String playingUrl = PlayAction.getNowPlayingUrl();
-            RadMan.setNowPlayingUrl(playingUrl);
+            String playingFile = playingInfo.getPlayingFile();
+            PlayPanel.setNowPlayingFile(playingFile);
+            String playingUrl = playingInfo.getRadioStationInfo();
+            PlayPanel.setNowPlayingUrl(playingUrl);
 
-            PlayAction.setUrl(url);
+            playingInfo.setUrl(url);
             stationPlayer.play();
-        }
 
+            metadata.startMetadata();
+        }
     }
 
     @Override
     public void update(@NotNull final AnActionEvent e) {
-        stationPlayer = StationPlayer.getInstance();
-       // Set the availability based on opened filetype
+        // Set the availability based on opened filetype
         e.getPresentation().setEnabledAndVisible(
-                ActionUtil.getDefaultExtenstion(e).equals("rad"));
+                ActionUtil.getDefaultExtension(e).equals("rad"));
     }
 
 }

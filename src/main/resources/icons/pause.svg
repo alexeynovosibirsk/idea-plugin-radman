@@ -1,3 +1,12 @@
-<?xml version="1.0" ?>
-<svg height="72" id="svg1025" version="1.1" viewBox="0 0 19.05 19.050001" width="16" xmlns="http://www.w3.org/2000/svg"
-><defs id="defs1022"/><g id="layer1" style="opacity:1"><g id="g4266" style="stroke-width:0.760677" transform="matrix(1.3194418,0,0,1.309811,-7.6888039,-8.2248598)"><rect height="11.700173" id="rect23504" style="font-variation-settings:normal;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:0.380339;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke;stop-color:#000000" width="1.9899731" x="9.719285" y="7.7013798"/><rect height="11.700173" id="rect23586" style="font-variation-settings:normal;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:0.380339;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke;stop-color:#000000" width="1.9899731" x="14.383297" y="7.7013798"/></g></g></svg>
+<svg width="16" height="16" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1_103)">
+<circle cx="256" cy="256" r="240" stroke="#808080" stroke-width="32"/>
+<rect x="297" y="360.8" width="204.8" height="48" rx="20" transform="rotate(-90 297 360.8)" fill="#808080"/>
+<rect x="167" y="356.8" width="204.8" height="48" rx="20" transform="rotate(-90 167 356.8)" fill="#808080"/>
+</g>
+<defs>
+<clipPath id="clip0_1_103">
+<rect width="512" height="512" fill="white"/>
+</clipPath>
+</defs>
+</svg>

@@ -1,6 +1,6 @@
 package com.nazarov.radman.util.audio;
 
-import com.nazarov.radman.action.PlayAction;
+import com.nazarov.radman.model.PlayingInfo;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
@@ -24,9 +24,11 @@ public class StationPlayer extends Thread {
         return INSTANCE;
     }
 
+    private PlayingInfo playingInfo = PlayingInfo.getInstance();
+
     @Override
     public void run() {
-        urlPlayer(PlayAction.getUrl());
+        urlPlayer(playingInfo.getUrl());
     }
 
     public boolean getStatus() {
