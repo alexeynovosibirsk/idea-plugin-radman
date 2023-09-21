@@ -17,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Action play
  */
-
 public class PlayAction extends AnAction {
     //CAUTION! AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
 

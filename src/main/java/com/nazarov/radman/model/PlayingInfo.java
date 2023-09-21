@@ -1,9 +1,7 @@
 package com.nazarov.radman.model;
 
 import com.intellij.openapi.editor.Caret;
-import com.intellij.openapi.editor.VisualPosition;
-import com.intellij.openapi.util.Pair;
-
+import com.intellij.openapi.editor.LogicalPosition;
 import java.net.URL;
 
 /**
@@ -20,6 +18,8 @@ public class PlayingInfo {
     private static String playingFile;
     private static String radioStationInfo;
     private static Caret primaryCaret;
+    private static LogicalPosition cursorPosition;
+
 
     private PlayingInfo() {
     }
@@ -45,11 +45,10 @@ public class PlayingInfo {
     public String getRadioStationInfo() { return radioStationInfo; }
     public void setRadioStationInfo(String string) { radioStationInfo = string; }
     public static Caret getPrimaryCaret() { return primaryCaret; }
-    public static void setPrimaryCaret(Caret caret) { primaryCaret = caret; }
-    public static Pair<Integer, Integer> getCursorPositionLineAndColumn() {
-        VisualPosition v = primaryCaret.getVisualPosition();
-
-        return new Pair<>(v.line, 0);
+    public static void setPrimaryCaret(Caret caret) {
+        primaryCaret = caret;
+        cursorPosition = primaryCaret.getLogicalPosition();
     }
+    public static LogicalPosition getCursorPosition() { return cursorPosition; }
 
 }

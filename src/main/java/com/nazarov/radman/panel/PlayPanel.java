@@ -1,26 +1,30 @@
 package com.nazarov.radman.panel;
 
+import com.intellij.ide.BrowserUtil;
+import com.intellij.openapi.editor.LogicalPosition;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.fileTypes.PlainTextFileType;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileFactory;
 import com.intellij.ui.JBColor;
+import com.nazarov.radman.message.ShowMsg;
 import com.nazarov.radman.model.PlayingInfo;
 import org.jetbrains.annotations.NotNull;
-
 import javax.swing.*;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Panel "Playing info"
  */
-
 public class PlayPanel {
     public static final String NO_METADATA = "The radio station is not provide any metadata";
     public static final String NOTHING_IS_PLAYED = "Nothing is played now...";
@@ -29,8 +33,6 @@ public class PlayPanel {
     public static final String FIRST_PIPE = "|";
     public static final String DOUBLE_WHITESPACES = "  ";
     public static final String CLEAR = "";
-
-
     private static final JLabel metadata = new JLabel();
     private static final JLabel nowPlayingFile = new JLabel();
     private static final JLabel nowPlayingUrl = new JLabel();
@@ -56,11 +58,7 @@ public class PlayPanel {
     }
 
     public static void setMetadata(String string) {
-        if (string != null) {
-            metadata.setText(string);
-        } else {
-            metadata.setText(NO_METADATA);
-        }
+        metadata.setText(Objects.requireNonNullElse(string, NO_METADATA));
     }
 
     @NotNull
@@ -78,8 +76,41 @@ public class PlayPanel {
                     psiFile = factory.createFileFromText(FILENAME, PlainTextFileType.INSTANCE, TXT);
                 }
                 VirtualFile virtualFile = psiFile.getVirtualFile();
-                Pair<Integer, Integer> pair = PlayingInfo.getCursorPositionLineAndColumn();
-                new OpenFileDescriptor(project, virtualFile, pair.first, pair.second).navigate(true);
+                LogicalPosition cursorPosition = PlayingInfo.getCursorPosition();
+                new OpenFileDescriptor(project, virtualFile, cursorPosition.line, cursorPosition.column).navigate(true);
+            }
+        });
+
+        nowPlayingUrl.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                PlayingInfo info = PlayingInfo.getInstance();
+                List<String> list = new ArrayList<>(Arrays.asList(info.getRadioStationInfo().split(" ")));
+                String link = null;
+                for (String s : list) {
+                    if (s.contains("http")) {
+                        link = s;
+                    }
+                }
+                if (link != null) {
+                    BrowserUtil.browse(link);
+                } else {
+                    ShowMsg.dialog(ShowMsg.URL_IS_NOT_VALID + link, ShowMsg.ERROR_TITLE);
+                }
+            }
+        });
+
+        metadata.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String string = metadata.getText();
+                String artist = string.split(" - ")[0];
+                String clearArtist = artist.replace("'", "").trim();
+                if (clearArtist != null) {
+                    BrowserUtil.browse("https://www.google.com/search?q=" + clearArtist);
+                } else {
+                    ShowMsg.dialog(ShowMsg.URL_IS_NOT_VALID + clearArtist, ShowMsg.ERROR_TITLE);
+                }
             }
         });
 
@@ -97,5 +128,6 @@ public class PlayPanel {
 
         return jPanel;
     }
+
 
 }

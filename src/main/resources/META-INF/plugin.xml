@@ -18,6 +18,7 @@
     <change-notes>
         <![CDATA[
       <ul>
+      <li><b>2.5.0</b> Added search in Playing Info panel. Functions: mute\unmute via ALT+SHIFT+1, play next via ALT+SHIFT+2</li>
       <li><b>2.4.0</b> Action added: Move To First</li>
       <li><b>2.3.0</b> Artist and song info added to Playing Info panel</li>
       <li><b>2.2.2</b> Fixing bug ListProcessing group visibility</li>
