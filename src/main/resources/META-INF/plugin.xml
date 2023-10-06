@@ -18,7 +18,8 @@
     <change-notes>
         <![CDATA[
       <ul>
-      <li><b>2.5.0</b> Added search in Playing Info panel. Functions: mute\unmute via ALT+SHIFT+1, play next via ALT+SHIFT+2</li>
+      <li><b>2.6.0</b> Action added: RadMan Help</li>
+      <li><b>2.5.0</b> Added search in Playing Info panel. Functions: mute\unmute via ALT+SHIFT+1</li>
       <li><b>2.4.0</b> Action added: Move To First</li>
       <li><b>2.3.0</b> Artist and song info added to Playing Info panel</li>
       <li><b>2.2.2</b> Fixing bug ListProcessing group visibility</li>
@@ -35,6 +36,13 @@
     <vendor url="https://github.com/alexeynovosibirsk">Alexey Nazarov</vendor>
 
     <actions>
+        <action id="com.nazarov.radman.action.HelpAction"
+                class="com.nazarov.radman.action.HelpAction"
+                text="RadMan Help"
+                description="Open help page in Browser"
+                icon="Icons.Question_icon">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
         <group
                 id="com.nazarov.radman.action.group.ListProcessingGroup"
                 class="com.nazarov.radman.action.group.ListProcessingGroup"
@@ -101,23 +109,13 @@
         <action
                 id="com.nazarov.radman.action.PauseAction"
                 class="com.nazarov.radman.action.PauseAction"
-                text="Pause"
-                description="Stop playing"
+                text="Mute/Unmute"
+                description="Stop playing, continue playing"
                 icon="Icons.Pause_icon">
             <keyboard-shortcut
                     keymap="$default"
                     first-keystroke="alt shift 1"/>
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-        </action>
-        <action id="com.nazarov.radman.action.play.PlayNextAction"
-                class="com.nazarov.radman.action.play.PlayNextAction"
-                text="PlayNext"
-                description="Playing selected url"
-                icon="Icons.Play_icon">
-            <keyboard-shortcut
-                    keymap="$default"
-                    first-keystroke="alt shift 2"/>
-            <add-to-group group-id="ToolsMenu" anchor="first"/>
         </action>
         <action id="com.nazarov.radman.action.play.PlayAction"
                 class="com.nazarov.radman.action.play.PlayAction"
