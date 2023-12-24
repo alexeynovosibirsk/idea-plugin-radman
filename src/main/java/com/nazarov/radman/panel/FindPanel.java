@@ -16,16 +16,12 @@ import com.intellij.ui.DocumentAdapter;
 import com.nazarov.radman.message.ShowMsg;
 import com.nazarov.radman.model.CommunityRadioBrowser;
 import com.nazarov.radman.util.Util;
-import org.apache.commons.lang.StringUtils;
+import com.nazarov.radman.validate.IntegerValidator;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -46,7 +42,7 @@ public class FindPanel {
         final String MESSAGE = "Limit of query must be integer. This variable will be ignored!";
         new ComponentValidator(toolWindow.getDisposable()).withValidator(() -> {
             String lim = limit.getText();
-            if (!StringUtils.isNumeric(lim)) {
+            if (!IntegerValidator.isNumeric(lim)) {
                 return new ValidationInfo(MESSAGE, limit);
             }
             return null;
@@ -217,6 +213,9 @@ public class FindPanel {
 
             Project project = toolWindow.getProject();
             VirtualFile virtualFile = project.getProjectFile();
+            if (virtualFile == null) {
+                return false;
+            }
             VirtualFile directory = virtualFile.getParent().getParent();
 
             PsiManager psiManager = PsiManager.getInstance(project);
