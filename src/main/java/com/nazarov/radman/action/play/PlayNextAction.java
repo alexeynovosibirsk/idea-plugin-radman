@@ -13,7 +13,8 @@ import com.nazarov.radman.util.Metadata;
 import com.nazarov.radman.util.UrlUtil;
 import com.nazarov.radman.util.audio.StationPlayer;
 import org.jetbrains.annotations.NotNull;
-
+@Deprecated
+//TODO: may be used in next releases
 public class PlayNextAction extends AnAction {
     //CAUTION! AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
 
