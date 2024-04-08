@@ -1,6 +1,7 @@
 package com.nazarov.radman.action;
 
 import com.intellij.ide.BrowserUtil;
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -9,6 +10,7 @@ import com.intellij.openapi.editor.Editor;
 import com.nazarov.radman.message.ShowMsg;
 import com.nazarov.radman.util.ActionUtil;
 import com.nazarov.radman.util.UrlUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
 
@@ -29,6 +31,11 @@ public class ViewAction extends AnAction {
                 }
             }
 
+    }
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.BGT;
     }
 
     @Override

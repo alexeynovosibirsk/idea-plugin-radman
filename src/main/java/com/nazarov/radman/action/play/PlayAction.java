@@ -1,5 +1,6 @@
 package com.nazarov.radman.action.play;
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -51,6 +52,11 @@ public class PlayAction extends AnAction {
             Metadata metadata = Metadata.getInstance();
             metadata.startMetadata();
         }
+    }
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.EDT;
     }
 
     @Override

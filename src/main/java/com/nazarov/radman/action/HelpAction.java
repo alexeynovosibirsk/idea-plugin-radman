@@ -1,6 +1,7 @@
 package com.nazarov.radman.action;
 
 import com.intellij.ide.BrowserUtil;
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.nazarov.radman.util.ActionUtil;
@@ -18,6 +19,11 @@ public class HelpAction extends AnAction {
                 if(url != null) {
                     BrowserUtil.browse(url);
                 }
+    }
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.BGT;
     }
 
     @Override
