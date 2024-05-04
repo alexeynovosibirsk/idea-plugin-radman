@@ -1,5 +1,6 @@
 package com.nazarov.radman.action;
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.nazarov.radman.message.ShowMsg;
@@ -47,6 +48,11 @@ public class PauseAction extends AnAction {
 
             metadata.startMetadata();
         }
+    }
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.BGT;
     }
 
     @Override

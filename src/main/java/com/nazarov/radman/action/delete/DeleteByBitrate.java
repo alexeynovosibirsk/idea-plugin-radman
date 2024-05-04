@@ -1,5 +1,6 @@
 package com.nazarov.radman.action.delete;
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.command.WriteCommandAction;
@@ -79,6 +80,11 @@ public class DeleteByBitrate extends AnAction {
 
         deletedLines[0] = ActionUtil.deleteLines(e, project, visualPositionList);
         ActionUtil.resultReport(processedLines[0], deletedLines[0]);
+    }
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.BGT;
     }
 
     @Override

@@ -18,6 +18,8 @@
     <change-notes>
         <![CDATA[
       <ul>
+      <li><b>2.7.1</b> Added support for async version of AnAction API</li>
+      <li><b>2.7.0</b> Improved the menu</li>
       <li><b>2.6.0</b> Action added: RadMan Help</li>
       <li><b>2.5.0</b> Added search in Playing Info panel. Functions: mute\unmute via ALT+SHIFT+1</li>
       <li><b>2.4.0</b> Action added: Move To First</li>
@@ -46,9 +48,8 @@
         <group
                 id="com.nazarov.radman.action.group.ListProcessingGroup"
                 class="com.nazarov.radman.action.group.ListProcessingGroup"
-                text="ListProcessing"
-                popup="true"
-                icon="Icons.List_icon">
+                text="RadMansList Delete Ops"
+                popup="true">
 
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
 
@@ -56,56 +57,58 @@
                     id="com.nazarov.radman.action.delete.DeleteByLanguage"
                     class="com.nazarov.radman.action.delete.DeleteByLanguage"
                     text="Delete By Used Lang"
-                    description="Delete urls using language that you not want"
-                    icon="Icons.Delete_icon">
+                    description="Delete urls using language that you not want">
             </action>
             <action
                     id="com.nazarov.radman.action.delete.DeleteExceptLanguages"
                     class="com.nazarov.radman.action.delete.DeleteExceptLanguages"
                     text="Delete Except Used Lang"
-                    description="Delete urls EXCEPT using languages"
-                    icon="Icons.Delete_icon">
+                    description="Delete urls EXCEPT using languages">
             </action>
             <action
                     id="com.nazarov.radman.action.delete.DeleteByBitrate"
                     class="com.nazarov.radman.action.delete.DeleteByBitrate"
                     text="Delete By Low Bitrates"
-                    description="Delete urls using bitrate lower than you want"
-                    icon="Icons.Delete_icon">
+                    description="Delete urls using bitrate lower than you want">
             </action>
             <action
                     id="com.nazarov.radman.action.delete.DeleteNonStreamingUrlsAction"
                     class="com.nazarov.radman.action.delete.DeleteNonStreamingUrlsAction"
                     text="Delete Non Audio Urls"
-                    description="Delete non audio streaming urls"
-                    icon="Icons.Delete_icon">
+                    description="Delete non audio streaming urls">
             </action>
         </group>
 
-        <action
-                id="com.nazarov.radman.action.ViewAction"
-                class="com.nazarov.radman.action.ViewAction"
-                text="View in Browser"
-                description="Open selected url in browser"
-                icon="Icons.Browser_icon">
+        <group
+                id="com.nazarov.radman.action.group.Miscellaneous"
+                class="com.nazarov.radman.action.group.Miscellaneous"
+                text="Miscellaneous"
+                popup="true">
+
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-        </action>
-        <action
-                id="com.nazarov.radman.action.delete.DeleteAction"
-                class="com.nazarov.radman.action.delete.DeleteAction"
-                text="Delete Line Under Cursor"
-                description="Delete string"
-                icon="Icons.Delete_icon">
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-        </action>
-        <action
-                id="com.nazarov.radman.action.manipulation.MoveToFirst"
-                class="com.nazarov.radman.action.manipulation.MoveToFirst"
-                text="Move To First"
-                description="Move the string to the first position"
-                icon="Icons.MoveToFirst_icon">
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-        </action>
+            <action
+                    id="com.nazarov.radman.action.ViewAction"
+                    class="com.nazarov.radman.action.ViewAction"
+                    text="View in Browser"
+                    description="Open selected url in browser"
+                    icon="Icons.Browser_icon">
+            </action>
+            <action
+                    id="com.nazarov.radman.action.delete.DeleteAction"
+                    class="com.nazarov.radman.action.delete.DeleteAction"
+                    text="Delete Line Under Cursor"
+                    description="Delete string"
+                    icon="Icons.Delete_icon">
+            </action>
+            <action
+                    id="com.nazarov.radman.action.manipulation.MoveToFirst"
+                    class="com.nazarov.radman.action.manipulation.MoveToFirst"
+                    text="Move To First"
+                    description="Move the string to the first position"
+                    icon="Icons.MoveToFirst_icon">
+            </action>
+        </group>
+
         <action
                 id="com.nazarov.radman.action.PauseAction"
                 class="com.nazarov.radman.action.PauseAction"
@@ -124,15 +127,11 @@
                 icon="Icons.Play_icon">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
-
     </actions>
 
-
     <extensions defaultExtensionNs="com.intellij">
-
         <toolWindow id="Rad.Man." secondary="true" icon="Icons.Headphones_icon" anchor="bottom"
                     factoryClass="com.nazarov.radman.RadMan"/>
-
         <fileType
                 name="RadMan File"
                 implementationClass="com.nazarov.radman.color.language.RadManFileType"
@@ -146,6 +145,5 @@
                                        implementationClass="com.nazarov.radman.color.language.RadManSyntaxHighlighterFactory"/>
         <iconProvider implementation="com.nazarov.radman.color.language.RadManPropertyIconProvider"/>
         <colorSettingsPage implementation="com.nazarov.radman.color.language.RadManColorSettingsPage"/>
-
     </extensions>
 </idea-plugin>

@@ -1,5 +1,6 @@
 package com.nazarov.radman.action.manipulation;
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.nazarov.radman.util.ActionUtil;
@@ -10,6 +11,11 @@ public class MoveToFirst extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
         ActionUtil.moveStringToFirst(e);
+    }
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.BGT;
     }
 
     @Override
