@@ -20,7 +20,6 @@ public class PlayingInfo {
     private static Caret primaryCaret;
     private static LogicalPosition cursorPosition;
 
-
     private PlayingInfo() {
     }
     public static PlayingInfo getInstance() {
@@ -49,6 +48,7 @@ public class PlayingInfo {
         primaryCaret = caret;
         cursorPosition = primaryCaret.getLogicalPosition();
     }
+
     public static LogicalPosition getCursorPosition() { return cursorPosition; }
 
 }

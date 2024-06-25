@@ -6,6 +6,10 @@ import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.nazarov.radman.util.ActionUtil;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Menu "RadMan List Deleting Ops"
+ * CAUTION: AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
+ */
 public class ListProcessingGroup extends DefaultActionGroup {
 
     @Override

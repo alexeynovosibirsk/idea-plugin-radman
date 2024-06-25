@@ -53,7 +53,7 @@ public class Util {
         while (!parser.isClosed()) {
             JsonToken jsonToken = parser.nextToken();
             if (JsonToken.FIELD_NAME.equals(jsonToken)) {
-                fieldName = parser.getCurrentName();
+                fieldName = parser.currentName();
                 parser.nextToken();
 
                 if ("url".equals(fieldName)) {

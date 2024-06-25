@@ -11,8 +11,12 @@ import com.nazarov.radman.message.ShowMsg;
 import com.nazarov.radman.util.ActionUtil;
 import com.nazarov.radman.util.UrlUtil;
 import org.jetbrains.annotations.NotNull;
-
 import java.net.URL;
+
+/**
+ * Action "View in browser"
+ * CAUTION: AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
+ */
 
 public class ViewAction extends AnAction {
 
@@ -23,7 +27,7 @@ public class ViewAction extends AnAction {
         String selected = primaryCaret.getSelectedText();
 
             if (selected == null) {
-                ShowMsg.dialog(ShowMsg.HIGHLIGTH_THE_LINK, ShowMsg.HIGHLIGTH_THE_LINK_TITLE);
+                ShowMsg.dialog(ShowMsg.HIGHLIGHT_THE_LINK, ShowMsg.HIGHLIGHT_THE_LINK_TITLE);
             } else {
                 URL url = UrlUtil.makeUrl(selected);
                 if(url != null) {

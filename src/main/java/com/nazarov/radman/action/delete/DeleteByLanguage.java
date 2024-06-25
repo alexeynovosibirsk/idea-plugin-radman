@@ -12,15 +12,18 @@ import com.intellij.openapi.util.Computable;
 import com.nazarov.radman.message.AskParam;
 import com.nazarov.radman.util.ActionUtil;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Action "Delete By Language"
+ * CAUTION: AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
+ */
+
 public class DeleteByLanguage extends AnAction {
-    //AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
+
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-
         String askLanguage = AskParam.askLanguage();
         if (askLanguage != null) {
             progressIndicator(e.getProject(), e, askLanguage);

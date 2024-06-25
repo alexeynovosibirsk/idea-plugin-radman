@@ -11,7 +11,7 @@ public class CheckHeader {
     private static final int CONNECT_TIMEOUT = 2000;
     private static final int READ_TIMEOUT = 1700;
 
-
+    // This is for testing purposes
     public static void main(String[] args) {
         System.out.println("Result: " + CheckHeader.isAudioStream("http://mscp3.live-streams.nl:8340/jazz-flac.flac"));
         CheckHeader.printHeader("http://mscp3.live-streams.nl:8340/jazz-flac.flac");

@@ -12,15 +12,18 @@ import com.intellij.openapi.util.Computable;
 import com.nazarov.radman.message.AskParam;
 import com.nazarov.radman.util.ActionUtil;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Action "Delete By Bitrate"
+ * CAUTION: AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
+ */
+
 public class DeleteByBitrate extends AnAction {
-    //AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
+
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-
         int askBitrate = AskParam.askBitrate();
         if(askBitrate != 0) {
             progressIndicator(e.getProject(), e, askBitrate);
@@ -28,7 +31,6 @@ public class DeleteByBitrate extends AnAction {
     }
 
     private static void progressIndicator(Project project, AnActionEvent e, int askBitrate) {
-
         String delimiter = " | ";
 
         final int[] processedLines = {0};
