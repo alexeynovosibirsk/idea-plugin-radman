@@ -16,10 +16,10 @@ import com.nazarov.radman.util.audio.StationPlayer;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Action play
+ * Action "Play"
+ * CAUTION: AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
  */
 public class PlayAction extends AnAction {
-    //CAUTION! AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {

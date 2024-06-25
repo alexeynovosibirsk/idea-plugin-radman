@@ -13,12 +13,16 @@ import com.nazarov.radman.util.ActionUtil;
 import com.nazarov.radman.util.CheckHeader;
 import com.nazarov.radman.util.UrlUtil;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Action "Delete NonStreaming Urls"
+ * CAUTION: AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
+ */
+
 public class DeleteNonStreamingUrlsAction extends AnAction {
-    //AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
+
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
         progressIndicator(e.getProject(), e);

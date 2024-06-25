@@ -14,10 +14,14 @@ import com.nazarov.radman.util.Metadata;
 import com.nazarov.radman.util.UrlUtil;
 import com.nazarov.radman.util.audio.StationPlayer;
 import org.jetbrains.annotations.NotNull;
-@Deprecated
-//TODO: may be used in next releases
+
+/**
+ * Action PlayNextStation
+ * Apparently will be used in next releases
+ * CAUTION: AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
+ */
+
 public class PlayNextAction extends AnAction {
-    //CAUTION! AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
@@ -27,7 +31,7 @@ public class PlayNextAction extends AnAction {
         VisualPosition visualPosition = getCursorPosition(caret);
         TextRange textRange = getTextRange(e, visualPosition);
         check = textRange.getEndOffset() - textRange.getStartOffset();
-        // Check that string is not empty
+        //TODO: Check that string is not empty
         while (check < 11) {
             visualPosition = new VisualPosition(visualPosition.line + 1, 0);
             textRange = getTextRange(e, visualPosition);

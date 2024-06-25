@@ -1,9 +1,9 @@
 package com.nazarov.radman.validate;
 
 public class IntegerValidator implements ValidatorInput{
+
     @Override
     public boolean checkInput(String inputString) {
-
         if(isNumeric(inputString)) {
             return true;
         } else {

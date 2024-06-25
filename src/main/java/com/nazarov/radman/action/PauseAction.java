@@ -10,15 +10,14 @@ import com.nazarov.radman.util.ActionUtil;
 import com.nazarov.radman.util.Metadata;
 import com.nazarov.radman.util.audio.StationPlayer;
 import org.jetbrains.annotations.NotNull;
-
 import java.net.URL;
 
 /**
  * Action "Pause"
+ * CAUTION: AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
  */
 
 public class PauseAction extends AnAction {
-    //AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {

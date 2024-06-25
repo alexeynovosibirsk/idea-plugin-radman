@@ -12,18 +12,21 @@ import com.intellij.openapi.util.Computable;
 import com.nazarov.radman.message.AskParam;
 import com.nazarov.radman.util.ActionUtil;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Action "Delete Except Languages"
+ * CAUTION: AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
+ */
+
 public class DeleteExceptLanguages extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-
         String askExceptLanguage = AskParam.askExceptLanguage();
         if (askExceptLanguage != null) {
             List<String> languages = new ArrayList<>(Arrays.asList(askExceptLanguage.split(" ")));
@@ -33,9 +36,7 @@ public class DeleteExceptLanguages extends AnAction {
     }
 
     private static void progressIndicator(Project project, AnActionEvent e, List<String> languages) {
-        //AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
         String delimiter = " | ";
-
         final int[] processedLines = {0};
         final int[] deletedLines = {0};
         List<VisualPosition> visualPositionList = new ArrayList<>();

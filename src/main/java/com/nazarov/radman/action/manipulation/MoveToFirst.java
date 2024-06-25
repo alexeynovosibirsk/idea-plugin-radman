@@ -6,6 +6,10 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.nazarov.radman.util.ActionUtil;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Action "Move To First"
+ * CAUTION: AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
+ */
 public class MoveToFirst extends AnAction {
 
     @Override

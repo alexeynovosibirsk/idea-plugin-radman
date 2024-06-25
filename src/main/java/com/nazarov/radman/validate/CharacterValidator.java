@@ -4,10 +4,8 @@ import com.intellij.openapi.util.NlsSafe;
 
 public class CharacterValidator implements ValidatorInput{
 
-
     @Override
     public boolean checkInput(@NlsSafe String inputString) {
-
         int stringSize = inputString.length();
         if (stringSize == 0) {
             return false;

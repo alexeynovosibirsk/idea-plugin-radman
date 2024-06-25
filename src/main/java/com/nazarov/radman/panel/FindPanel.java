@@ -31,17 +31,15 @@ public class FindPanel {
     public static JPanel create(ToolWindow toolWindow) {
 
         final String INIT_MESSAGE = "Type genre here";
-
         CommunityRadioBrowser crb = new CommunityRadioBrowser();
-
         JTextField findParameter = new JTextField();
-
         JTextField limit = new JTextField();
 
         limit.setName("Limit");
         final String MESSAGE = "Limit of query must be integer. This variable will be ignored!";
         new ComponentValidator(toolWindow.getDisposable()).withValidator(() -> {
             String lim = limit.getText();
+            //TODO: инвертировать
             if (!IntegerValidator.isNumeric(lim)) {
                 return new ValidationInfo(MESSAGE, limit);
             }
@@ -69,14 +67,12 @@ public class FindPanel {
 
             String genre = findParameter.getText();
             if ((!genre.isEmpty()) && (!genre.equalsIgnoreCase(INIT_MESSAGE))) {
-
                 boolean isFileCreated = findInCommunityRadioBrowser(crb, toolWindow, genre, limit.getText());
                 if (isFileCreated) {
                     ShowMsg.dialog("Stations found: " + Util.getStationsFound(), ShowMsg.REQUEST_COMPLETED);
                 } else {
                     ShowMsg.dialog("There is no results for " + genre, ShowMsg.REQUEST_COMPLETED);
                 }
-
             } else {
                 ShowMsg.dialog(ShowMsg.QUERY_PARAMETER_IS_MISSED, ShowMsg.QUERY_PARAMETER_IS_MISSED_TITLE);
             }
