@@ -4,62 +4,67 @@ import com.nazarov.radman.model.PlayingInfo;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.ConnectException;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-public class StationPlayer extends Thread {
-    Thread thread = new Thread();
-    private boolean isPlayed = false;
-    private static StationPlayer INSTANCE = null;
+public class StationPlayer {
 
-    private StationPlayer() {
-    }
+    private static InputStream is = null;
+    private static Future<?> future = null;
+    private static final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private static boolean isPlayed = false;
+    private static final PlayingInfo playingInfo = PlayingInfo.getInstance();
 
-    public static StationPlayer getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new StationPlayer();
-        }
-        return INSTANCE;
-    }
-
-    private PlayingInfo playingInfo = PlayingInfo.getInstance();
-
-    @Override
-    public void run() {
-        urlPlayer(playingInfo.getUrl());
-    }
-
-    public boolean getStatus() {
+    public static boolean getStatus() {
         return isPlayed;
     }
 
-    public void play() {
+    public static void play() {
         isPlayed = true;
-        thread = new StationPlayer();
-        thread.start();
+        future = executorService.submit(() ->
+                urlPlayer(open(playingInfo.getUrl())));
     }
 
-    public void stopPlay() {
-        thread.stop();
+    public static void stopPlay() {
+        inputStreamClose();
+        if (future != null) {
+            future.cancel(true);
+        }
         isPlayed = false;
     }
 
-    public void urlPlayer(URL url) {
+    private static InputStream open(URL url) {
         try {
-            AACPlayer.decodeAAC(url.openStream());
+            is = url.openStream();
+        } catch (IOException e) {
+            System.out.println("Unable to open " + url + ": " + e.getCause());
+        }
+        return is;
+    }
+
+    private static void inputStreamClose() {
+        if (is != null) {
+            try {
+                is.close();
+            } catch (IOException e) {
+                System.out.println("Unable to close input steam:" + e.getCause());
+            }
+        }
+    }
+
+    public static void urlPlayer(InputStream url) {
+        try {
+            AACPlayer.decodeAAC(url);
         } catch (Exception e) {
             try {
-                AdvancedPlayer advancedPlayer = new AdvancedPlayer(url.openStream());
+                AdvancedPlayer advancedPlayer = new AdvancedPlayer(url);
                 advancedPlayer.play();
-
-            } catch (JavaLayerException | ConnectException | FileNotFoundException ex) {
-                ex.printStackTrace();
-                e.printStackTrace();
-
-            } catch (IOException ex) {
-                e.printStackTrace();
+            } catch (JavaLayerException ex) {
+//            ex.printStackTrace();
             }
         }
     }

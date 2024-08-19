@@ -45,12 +45,10 @@ public class PlayAction extends AnAction {
                 PlayPanel.setNowPlayingFile(playingInfo.getPlayingFile());
             }
 
-            StationPlayer stationPlayer = StationPlayer.getInstance();
-            stationPlayer.stopPlay();
-            stationPlayer.play();
-
-            Metadata metadata = Metadata.getInstance();
-            metadata.startMetadata();
+            StationPlayer.stopPlay();
+            Metadata.stopMetadata();
+            StationPlayer.play();
+            Metadata.startMetadata();
         }
     }
 

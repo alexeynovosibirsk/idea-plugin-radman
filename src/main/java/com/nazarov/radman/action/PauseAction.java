@@ -22,20 +22,18 @@ public class PauseAction extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
         PlayingInfo playingInfo = PlayingInfo.getInstance();
-        Metadata metadata = Metadata.getInstance();
-        StationPlayer stationPlayer = StationPlayer.getInstance();
-        boolean played = stationPlayer.getStatus();
+        boolean played = StationPlayer.getStatus();
         URL url = playingInfo.getUrl();
         if (url == null) {
             ShowMsg.dialog(ShowMsg.NOTHING_IS_PLAYED, ShowMsg.NOTHING_IS_PLAYED_TITLE);
         }
         if (played) {
-            stationPlayer.stopPlay();
+            StationPlayer.stopPlay();
+            Metadata.stopMetadata();
             //TODO: Think about to invoke the below objects without setters
             PlayPanel.setNowPlayingFile(PlayPanel.NOTHING_IS_PLAYED);
             PlayPanel.setNowPlayingUrl(PlayPanel.CLEAR);
             PlayPanel.setMetadata(PlayPanel.CLEAR);
-            metadata.stopMetadata();
         } else {
             String playingFile = playingInfo.getPlayingFile();
             PlayPanel.setNowPlayingFile(playingFile);
@@ -43,9 +41,9 @@ public class PauseAction extends AnAction {
             PlayPanel.setNowPlayingUrl(playingUrl);
 
             playingInfo.setUrl(url);
-            stationPlayer.play();
+            StationPlayer.play();
 
-            metadata.startMetadata();
+            Metadata.startMetadata();
         }
     }
 
