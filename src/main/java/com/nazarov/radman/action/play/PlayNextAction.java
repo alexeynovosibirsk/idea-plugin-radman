@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
  * Apparently will be used in next releases
  * CAUTION: AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
  */
-
+//TODO: think about to use this
 public class PlayNextAction extends AnAction {
 
     @Override
@@ -52,12 +52,11 @@ public class PlayNextAction extends AnAction {
         }
 
         playingInfo.setUrl(UrlUtil.makeUrl(urlAsString));
-        StationPlayer stationPlayer = StationPlayer.getInstance();
-        stationPlayer.stopPlay();
-        stationPlayer.play();
+        StationPlayer.stopPlay();
+        Metadata.stopMetadata();
 
-        Metadata metadata = Metadata.getInstance();
-        metadata.startMetadata();
+        StationPlayer.play();
+        Metadata.startMetadata();
     }
 
     private static VisualPosition getCursorPosition(Caret caret) {
