@@ -26,7 +26,7 @@ public class Util {
 
     public static String getDataFromRadioBrowser(String findParameter, String limit, CommunityRadioBrowser crb) throws IOException {
 
-        String prefix = "https://nl1.api.radio-browser.info/json/stations/search?limit=";
+        String prefix = "https://de1.api.radio-browser.info/json/stations/search?limit=";
         String genre = "&name=" + findParameter;
         String urlString = prefix + limit + genre + "&hidebroken=true&order=clickcount&reverse=true";
 

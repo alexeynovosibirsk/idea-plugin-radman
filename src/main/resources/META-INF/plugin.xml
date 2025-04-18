@@ -18,6 +18,7 @@
     <change-notes>
         <![CDATA[
       <ul>
+      <li><b>2.7.4</b> Fix changed radiobrowser url</li>
       <li><b>2.7.3</b> Remove deprecated API and fixing bug with displaying radio station metadata</li>
       <li><b>2.7.2</b> Remove deprecated API</li>
       <li><b>2.7.1</b> Added support for async version of AnAction API</li>
