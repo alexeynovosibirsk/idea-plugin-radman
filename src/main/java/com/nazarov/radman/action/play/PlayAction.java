@@ -1,5 +1,6 @@
 package com.nazarov.radman.action.play;
 
+import com.intellij.ide.util.RunOnceUtil;
 import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -12,6 +13,7 @@ import com.nazarov.radman.panel.PlayPanel;
 import com.nazarov.radman.util.ActionUtil;
 import com.nazarov.radman.util.Metadata;
 import com.nazarov.radman.util.UrlUtil;
+import com.nazarov.radman.util.Util;
 import com.nazarov.radman.util.audio.StationPlayer;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,6 +25,9 @@ public class PlayAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
+        //TODO: подумать периодичность LocalDate localDate = LocalDate.now();
+        RunOnceUtil.runOnceForApp("id3", Util.runOnce());
+
         PlayingInfo playingInfo = PlayingInfo.getInstance();
         Caret primaryCaret = ActionUtil.getPrimaryCaret(e);
         PlayingInfo.setPrimaryCaret(primaryCaret);

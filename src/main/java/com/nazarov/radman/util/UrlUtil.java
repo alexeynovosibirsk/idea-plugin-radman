@@ -2,6 +2,8 @@ package com.nazarov.radman.util;
 
 import com.nazarov.radman.message.ShowMsg;
 import org.apache.commons.validator.routines.UrlValidator;
+
+import java.net.URI;
 import java.net.URL;
 
 public class UrlUtil {
@@ -17,7 +19,7 @@ public class UrlUtil {
             URL url = null;
             try {
                 if (urlValidator(string)) {
-                    url = new URL(string);
+                    url = new URI(string).toURL();
                 } else {
                     ShowMsg.dialog(ShowMsg.URL_IS_NOT_VALID + url, ShowMsg.URL_IS_NOT_VALID_TITLE);
                 }

@@ -25,6 +25,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.time.LocalTime;
 
 public class FindPanel {
 
@@ -121,26 +122,6 @@ public class FindPanel {
             }
         });
 
-        JRadioButton langButton = new JRadioButton("Lang");
-        langButton.setSelected(true);
-        langButton.addActionListener(e -> {
-            if (langButton.isSelected()) {
-                crb.setLanguage(true);
-            } else {
-                crb.setLanguage(false);
-            }
-        });
-
-        JRadioButton codecButton = new JRadioButton("Codec");
-        codecButton.setSelected(true);
-        codecButton.addActionListener(e -> {
-            if (codecButton.isSelected()) {
-                crb.setCodec(true);
-            } else {
-                crb.setCodec(false);
-            }
-        });
-
         JRadioButton bitrateButton = new JRadioButton("Bitrate");
         bitrateButton.setSelected(true);
         bitrateButton.addActionListener(e -> {
@@ -148,16 +129,6 @@ public class FindPanel {
                 crb.setBitrate(true);
             } else {
                 crb.setBitrate(false);
-            }
-        });
-
-        JRadioButton votesButton = new JRadioButton("Votes");
-        votesButton.setSelected(true);
-        votesButton.addActionListener(e -> {
-            if (votesButton.isSelected()) {
-                crb.setVotes(true);
-            } else {
-                crb.setVotes(false);
             }
         });
 
@@ -172,10 +143,7 @@ public class FindPanel {
         jPanel.add(nameButton);
         jPanel.add(homepageButton);
         jPanel.add(countryButton);
-        jPanel.add(langButton);
-        jPanel.add(codecButton);
         jPanel.add(bitrateButton);
-        jPanel.add(votesButton);
         jPanel.add(goButton);
 
         String urlResolved = "An automatically \"resolved\" stream URL. This usefull if you don't want to decoding playlists yourself." +
@@ -189,14 +157,8 @@ public class FindPanel {
         new HelpTooltip().setDescription(homepageButtonHelp).installOn(homepageButton);
         String countryButtonHelp = "Countrycode: 2 letters, uppercase. Official country codes as in ISO 3166-1 alpha-2";
         new HelpTooltip().setDescription(countryButtonHelp).installOn(countryButton);
-        String langButtonHelp = "Languages that are spoken in this stream.";
-        new HelpTooltip().setDescription(langButtonHelp).installOn(langButton);
-        String codecButtonHelp = "The codec of this stream recorded at the last check.";
-        new HelpTooltip().setDescription(codecButtonHelp).installOn(codecButton);
         String bitrateButtonHelp = "The bitrate of this stream recorded at the last check.";
         new HelpTooltip().setDescription(bitrateButtonHelp).installOn(bitrateButton);
-        String votesButtonHelp = "Number of votes for this station. This number is by server and only ever increases. It will never be reset to 0.";
-        new HelpTooltip().setDescription(votesButtonHelp).installOn(votesButton);
 
         return jPanel;
     }
@@ -218,7 +180,7 @@ public class FindPanel {
             PsiDirectory psiDirectory = psiManager.findDirectory(directory);
 
             if (!result.equals("[]") && psiDirectory != null && Util.getStationsFound() != 0) {
-                String fileName = Util.createFileName(findParameter);
+                String fileName = findParameter + "-" + LocalTime.now().getNano() + ".rad";
                 final PsiFileFactory psiFileFactory = PsiFileFactory.getInstance(project);
                 final PsiFile psiFile = psiFileFactory.createFileFromText(fileName, PlainTextFileType.INSTANCE, result);
 
