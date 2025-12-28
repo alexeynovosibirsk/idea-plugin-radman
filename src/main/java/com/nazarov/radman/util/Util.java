@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.intellij.openapi.application.ApplicationInfo;
 import com.intellij.openapi.application.PermanentInstallationID;
+import com.nazarov.radman.message.ShowMsg;
 import com.nazarov.radman.model.CommunityRadioBrowser;
 
 import java.io.IOException;
@@ -41,9 +42,8 @@ public class Util {
         List<String> urlPrefix = new ArrayList<>(Arrays.asList("https://de1", "https://de2", "https://fi1"));
         String params = ".api.radio-browser.info/json/stations/search?limit=" + limit + "&name=" + findParameter + "&hidebroken=true&order=clickcount&reverse=true";
         String urlString = urlPrefix.get(0) + params;
-        String url = "http://na3arov.ru/genre?genre=" + findParameter;
-        sendStatistic(url);
-
+//TODO        String url = "http://na3arov.ru/genre?genre=" + findParameter;
+//        sendStatistic(url);
 
         try {
             parser = getParser(urlString);
@@ -64,7 +64,7 @@ public class Util {
         return parseJson(crb, parser);
     }
 
-    public static String parseJson(CommunityRadioBrowser crb, JsonParser parser) throws IOException {
+    public static String parseJson(CommunityRadioBrowser crb, JsonParser parser) {
         stationsFound = 0;
         StringBuilder sb = new StringBuilder();
         String spltr = " | ";
@@ -72,43 +72,52 @@ public class Util {
         String name = "";
         String url = "";
         String countrycode = "";
+        String language = "";
         String bitrate = "";
 
         while (!parser.isClosed()) {
-            JsonToken jsonToken = parser.nextToken();
-            if (JsonToken.FIELD_NAME.equals(jsonToken)) {
-                String fieldName = parser.currentName();
-                parser.nextToken();
+            try {
+                JsonToken jsonToken = parser.nextToken();
+                if (JsonToken.FIELD_NAME.equals(jsonToken)) {
+                    String fieldName = parser.currentName();
+                    parser.nextToken();
 
-                if ("url".equals(fieldName)) {
-                    if (crb.isUrl()) {
-                        url = parser.getValueAsString() + " ";
-                    }
-                } else if ("url_resolved".equals(fieldName)) {
-                    if (crb.isUrl_resolved()) {
-                        url = parser.getValueAsString() + " ";
-                    }
-                } else if ("name".equals(fieldName)) {
-                    if (crb.isName()) {
-                        name = spltr + parser.getValueAsString();
-                    }
-                } else if ("homepage".equals(fieldName)) {
-                    if (crb.isHomepage()) {
-                        homepage = spltr + parser.getValueAsString();
-                    }
-                } else if ("countrycode".equals(fieldName)) {
-                    if (crb.isCountrycode()) {
-                        countrycode = spltr + parser.getValueAsString();
-                    }
-                } else if ("bitrate".equals(fieldName)) {
-                    if (crb.isBitrate()) {
-                        bitrate = spltr + "Bitrate:" + parser.getValueAsString();
-                    }
-                    if ((!url.isBlank())) {
-                        sb.append(url).append(name).append(homepage).append(countrycode).append(bitrate).append("\n");
-                        stationsFound++;
+                    if ("url".equals(fieldName)) {
+                        if (crb.isUrl()) {
+                            url = parser.getValueAsString() + " ";
+                        }
+                    } else if ("url_resolved".equals(fieldName)) {
+                        if (crb.isUrl_resolved()) {
+                            url = parser.getValueAsString() + " ";
+                        }
+                    } else if ("name".equals(fieldName)) {
+                        if (crb.isName()) {
+                            name = spltr + parser.getValueAsString();
+                        }
+                    } else if ("homepage".equals(fieldName)) {
+                        if (crb.isHomepage()) {
+                            homepage = spltr + parser.getValueAsString();
+                        }
+                    } else if ("countrycode".equals(fieldName)) {
+                        if (crb.isCountrycode()) {
+                            countrycode = spltr + parser.getValueAsString();
+                        }
+                    } else if ("language".equals(fieldName)) {
+                        if (crb.isLanguage()) {
+                            language = spltr + "Lang:" + parser.getValueAsString();
+                        }
+                    } else if ("bitrate".equals(fieldName)) {
+                        if (crb.isBitrate()) {
+                            bitrate = spltr + "Bitrate:" + parser.getValueAsString();
+                        }
+                        if ((!url.isBlank())) {
+                            sb.append(url).append(name).append(homepage).append(countrycode).append(language).append(bitrate).append("\n");
+                            stationsFound++;
+                        }
                     }
                 }
+            } catch (IOException e) {
+                ShowMsg.dialog("Проблемы на стороне сервера", "Ошибка на сервере");
             }
         }
 

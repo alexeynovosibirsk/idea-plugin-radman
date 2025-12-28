@@ -5,13 +5,15 @@ import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.editor.Caret;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.editor.VisualPosition;
 import com.nazarov.radman.message.ShowMsg;
 import com.nazarov.radman.util.ActionUtil;
 import com.nazarov.radman.util.UrlUtil;
 import org.jetbrains.annotations.NotNull;
+
 import java.net.URL;
+import java.util.Arrays;
 
 /**
  * Action "View in browser"
@@ -23,18 +25,23 @@ public class ViewAction extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent e) {
         final Editor editor = e.getRequiredData(CommonDataKeys.EDITOR);
-        Caret primaryCaret = editor.getCaretModel().getCurrentCaret();
-        String selected = primaryCaret.getSelectedText();
+        VisualPosition v = editor.getCaretModel().getVisualPosition();
+        String line = ActionUtil.getStringFromEditor(e, v);
+        String[] lines = line.split(" | ");
+        String link = Arrays.stream(lines)
+                .skip(1)
+                .filter(s -> s.contains("://"))
+                .findFirst()
+                .orElse("noURL");
 
-            if (selected == null) {
-                ShowMsg.dialog(ShowMsg.HIGHLIGHT_THE_LINK, ShowMsg.HIGHLIGHT_THE_LINK_TITLE);
-            } else {
-                URL url = UrlUtil.makeUrl(selected);
-                if(url != null) {
-                    BrowserUtil.browse(url);
-                }
+        if (link.equals("noURL")) {
+            ShowMsg.dialog("Отсутствует ссылка на сайт радиостанции!", "Нет ссылки:");
+        } else {
+            URL url = UrlUtil.makeUrl(link);
+            if (url != null) {
+                BrowserUtil.browse(url);
             }
-
+        }
     }
 
     @Override

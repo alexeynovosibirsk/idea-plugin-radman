@@ -9,30 +9,30 @@ import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Computable;
-import com.nazarov.radman.message.AskParam;
 import com.nazarov.radman.util.ActionUtil;
 import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
- * Action "Delete By Language"
+ * Action "Delete Duplicates"
  * CAUTION: AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
  */
 
-public class DeleteByLanguage extends AnAction {
+public class DeleteDuplicates extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        String askLanguage = AskParam.askLanguage();
-        if (askLanguage != null) {
-            progressIndicator(e.getProject(), e, askLanguage);
-        }
+            progressIndicator(e.getProject(), e);
     }
 
-    private static void progressIndicator(Project project, AnActionEvent e, String askLanguage) {
+    private static void progressIndicator(Project project, AnActionEvent e) {
 
         String delimiter = " | ";
+        Set<String> checkDouble = new HashSet<>();
 
         final int[] processedLines = {0};
         final int[] deletedLines = {0};
@@ -59,24 +59,12 @@ public class DeleteByLanguage extends AnAction {
                     progressIndicator.setFraction(h); // indicators chunk
                     progressIndicator.checkCanceled();
 
-                    if (lineUnderCaret.contains("Lang")) {
-                        String[] details = lineUnderCaret.split(delimiter);
-                        for (String s : details) {
-                            if (s.contains("Lang")) {
-                                String[] langArray = s.split(":");
-                                if (langArray.length > 1) {
-                                    processedLines[0]++;
-                                    String lang = langArray[1];
-                                    if (lang.equals(askLanguage)) {
-                                        visualPositionList.add(v);
-                                    }
-                                } else {
-                                    processedLines[0]++;
-                                }
-                            }
-                        }
-                    } else {
-                        processedLines[0]++;
+
+                    String[] details = lineUnderCaret.split(delimiter);
+                    String url = details[0];
+                    processedLines[0]++;
+                    if(!checkDouble.add(url)) {
+                        visualPositionList.add(v);
                     }
                 }
             }

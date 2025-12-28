@@ -26,8 +26,8 @@ import java.util.Objects;
  * Panel "Playing info"
  */
 public class PlayPanel {
-    public static final String NO_METADATA = "The radio station is not provide any metadata";
-    public static final String NOTHING_IS_PLAYED = "Nothing is played now...";
+    public static final String NO_METADATA = "Радиостанция не предоставляет метаданные";
+    public static final String NOTHING_IS_PLAYED = "Тишина...";
     public static final String FILENAME = "stub.rad";
     public static final String TXT = "stub";
     public static final String FIRST_PIPE = "|";

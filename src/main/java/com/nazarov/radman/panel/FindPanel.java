@@ -3,6 +3,8 @@ package com.nazarov.radman.panel;
 import com.intellij.ide.HelpTooltip;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.fileTypes.PlainTextFileType;
+import com.intellij.openapi.progress.ProgressManager;
+import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComponentValidator;
 import com.intellij.openapi.ui.ValidationInfo;
@@ -31,13 +33,13 @@ public class FindPanel {
 
     public static JPanel create(ToolWindow toolWindow) {
 
-        final String INIT_MESSAGE = "Type genre here";
+        final String INIT_MESSAGE = "Например: rock";
         CommunityRadioBrowser crb = new CommunityRadioBrowser();
         JTextField findParameter = new JTextField();
         JTextField limit = new JTextField();
 
         limit.setName("Limit");
-        final String MESSAGE = "Limit of query must be integer. This variable will be ignored!";
+        final String MESSAGE = "Значение должно быть числом! Текущее значение будет проигнорировано.";
         new ComponentValidator(toolWindow.getDisposable()).withValidator(() -> {
             String lim = limit.getText();
             //TODO: инвертировать
@@ -63,23 +65,47 @@ public class FindPanel {
             }
         });
 
-        JButton goButton = new JButton("GO!");
+        JButton goButton = new JButton("Скачать!");
         goButton.addActionListener(e -> {
 
+            ShowMsg.dialog("Запрос отправлен", "Выполнение запроса");
+
             String genre = findParameter.getText();
+            boolean isFileCreated = false;
             if ((!genre.isEmpty()) && (!genre.equalsIgnoreCase(INIT_MESSAGE))) {
-                boolean isFileCreated = findInCommunityRadioBrowser(crb, toolWindow, genre, limit.getText());
+    //TODO            isFileCreated = runBackgroundTask(toolWindow.getProject(), crb, toolWindow, genre, limit.getText());
+                isFileCreated = findInCommunityRadioBrowser(crb, toolWindow, genre, limit.getText());
+
+                int counter = 0;
+                while(!isFileCreated || counter > 5) {
+                    try {
+                        Thread.sleep(100L);
+                    } catch (InterruptedException ex) {
+
+                    }
+                    counter++;
+                }
+
+//                if(fileName != null) {
+//                    File file = new File(fileName);
+//                    VirtualFile virtualFileResult = LocalFileSystem.getInstance().findFileByIoFile(file);
+//                    PsiFile checkPsiFile = PsiManager.getInstance(toolWindow.getProject()).findFile(virtualFileResult);
+//                    if(checkPsiFile != null) {
+//                        isFileCreated = true;
+//                    }
+//                }
+
                 if (isFileCreated) {
-                    ShowMsg.dialog("Stations found: " + Util.getStationsFound(), ShowMsg.REQUEST_COMPLETED);
+                    ShowMsg.dialog("Станций найдено: " + Util.getStationsFound(), ShowMsg.REQUEST_COMPLETED);
                 } else {
-                    ShowMsg.dialog("There is no results for " + genre, ShowMsg.REQUEST_COMPLETED);
+                    ShowMsg.dialog("Нет вхождений для " + genre, ShowMsg.REQUEST_COMPLETED);
                 }
             } else {
                 ShowMsg.dialog(ShowMsg.QUERY_PARAMETER_IS_MISSED, ShowMsg.QUERY_PARAMETER_IS_MISSED_TITLE);
             }
         });
 
-        JRadioButton url_resolvedButton = new JRadioButton("Url_resolved");
+        JRadioButton url_resolvedButton = new JRadioButton("URL");
         url_resolvedButton.setSelected(true);
         url_resolvedButton.addActionListener(e -> {
             if (url_resolvedButton.isSelected()) {
@@ -92,7 +118,7 @@ public class FindPanel {
             }
         });
 
-        JRadioButton nameButton = new JRadioButton("Name");
+        JRadioButton nameButton = new JRadioButton("Название");
         nameButton.setSelected(true);
         nameButton.addActionListener(e -> {
             if (nameButton.isSelected()) {
@@ -102,7 +128,7 @@ public class FindPanel {
             }
         });
 
-        JRadioButton homepageButton = new JRadioButton("Homepage");
+        JRadioButton homepageButton = new JRadioButton("Сайт");
         homepageButton.setSelected(true);
         homepageButton.addActionListener(e -> {
             if (homepageButton.isSelected()) {
@@ -112,7 +138,7 @@ public class FindPanel {
             }
         });
 
-        JRadioButton countryButton = new JRadioButton("Country");
+        JRadioButton countryButton = new JRadioButton("Страна");
         countryButton.setSelected(true);
         countryButton.addActionListener(e -> {
             if (countryButton.isSelected()) {
@@ -122,7 +148,17 @@ public class FindPanel {
             }
         });
 
-        JRadioButton bitrateButton = new JRadioButton("Bitrate");
+        JRadioButton langButton = new JRadioButton("Язык");
+        langButton.setSelected(true);
+        langButton.addActionListener(e -> {
+            if (langButton.isSelected()) {
+                crb.setLanguage(true);
+            } else {
+                crb.setLanguage(false);
+            }
+        });
+
+        JRadioButton bitrateButton = new JRadioButton("Битрейт");
         bitrateButton.setSelected(true);
         bitrateButton.addActionListener(e -> {
             if (bitrateButton.isSelected()) {
@@ -133,34 +169,58 @@ public class FindPanel {
         });
 
         JLabel label = new JLabel();
-        label.setText("Find stations in https://www.radio-browser.info/: ");
+        label.setText("Жанр: ");
+        JLabel labelLim = new JLabel();
+        labelLim.setText("Лимит: ");
 
         JPanel jPanel = new JPanel();
         jPanel.add(label);
         jPanel.add(findParameter);
+        jPanel.add(labelLim);
         jPanel.add(limit);
-        jPanel.add(url_resolvedButton);
+     //   jPanel.add(url_resolvedButton);
         jPanel.add(nameButton);
         jPanel.add(homepageButton);
         jPanel.add(countryButton);
+        jPanel.add(langButton);
         jPanel.add(bitrateButton);
         jPanel.add(goButton);
 
-        String urlResolved = "An automatically \"resolved\" stream URL. This usefull if you don't want to decoding playlists yourself." +
-                "If you switch it off, you will receive links provided by users";
+        String urlResolved = "Автоматически резолвящиеся УРЛы - удобно, если не хотите декодировать плейлисты. При отключении параметра будут выданы УРЛы предоставленные пользователями.";
         new HelpTooltip().setDescription(urlResolved).installOn(url_resolvedButton);
-        String limitHelp = "Limit of query results. If you keep it empty you receive all found links.";
+        String limitHelp = "Лимит вхождений. Если не заполнен будут выданы все найденные вхождения.";
         new HelpTooltip().setDescription(limitHelp).installOn(limit);
-        String nameButtonHelp = "Name of radio station.";
+        String nameButtonHelp = "Название радиостанции.";
         new HelpTooltip().setDescription(nameButtonHelp).installOn(nameButton);
-        String homepageButtonHelp = "URL of homepage radio station.";
+        String homepageButtonHelp = "УРЛ сайта радиостанции.";
         new HelpTooltip().setDescription(homepageButtonHelp).installOn(homepageButton);
-        String countryButtonHelp = "Countrycode: 2 letters, uppercase. Official country codes as in ISO 3166-1 alpha-2";
+        String countryButtonHelp = "Код страны: 2 буквы в верхнем регистре. Официальные коды стран согласно стандарта ISO 3166-1 alpha-2.";
         new HelpTooltip().setDescription(countryButtonHelp).installOn(countryButton);
-        String bitrateButtonHelp = "The bitrate of this stream recorded at the last check.";
+        String langButtonHelp = "Язык вещания радиостанции.";
+        new HelpTooltip().setDescription(langButtonHelp).installOn(langButton);
+        String bitrateButtonHelp = "Битрейт потока, по данным последней проверки.";
         new HelpTooltip().setDescription(bitrateButtonHelp).installOn(bitrateButton);
 
         return jPanel;
+    }
+
+    public static boolean runBackgroundTask(Project project, CommunityRadioBrowser crb, ToolWindow toolWindow, String findParameter,
+                                  String limit) {
+        final boolean[] fileCreated = {false};
+        ProgressManager.getInstance().run(new Task.Backgroundable(project, "My Task Title", true) {
+            @Override
+            public void run(@NotNull com.intellij.openapi.progress.ProgressIndicator indicator) {
+                // This runs on a background thread.
+                indicator.setText("Working on something...");
+                fileCreated[0] = findInCommunityRadioBrowser(crb, toolWindow, findParameter, limit);
+                // ... perform long-running, non-UI task ...
+                if (indicator.isCanceled()) {
+                    return; // Check regularly for cancellation
+                }
+            }
+        });
+
+        return fileCreated[0];
     }
 
     public static boolean findInCommunityRadioBrowser(CommunityRadioBrowser crb, ToolWindow toolWindow, String findParameter,
@@ -183,10 +243,8 @@ public class FindPanel {
                 String fileName = findParameter + "-" + LocalTime.now().getNano() + ".rad";
                 final PsiFileFactory psiFileFactory = PsiFileFactory.getInstance(project);
                 final PsiFile psiFile = psiFileFactory.createFileFromText(fileName, PlainTextFileType.INSTANCE, result);
-
                 Runnable r = () -> psiDirectory.add(psiFile);
                 WriteCommandAction.runWriteCommandAction(project, r);
-
                 isFileCreated = true;
             }
         } catch (IOException e) {

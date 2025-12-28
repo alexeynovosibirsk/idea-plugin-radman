@@ -17,7 +17,7 @@ public class HelpAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-                URL url = UrlUtil.makeUrl("https://plugins.jetbrains.com/plugin/22185-radman/radman-help");
+                URL url = UrlUtil.makeUrl("https://gitflic.ru/project/nixoved/radman/blob?file=README.md&branch=master&mode=markdown");
                 if(url != null) {
                     BrowserUtil.browse(url);
                 }

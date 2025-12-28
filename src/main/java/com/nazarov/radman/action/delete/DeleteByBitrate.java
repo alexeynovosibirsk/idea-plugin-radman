@@ -12,6 +12,7 @@ import com.intellij.openapi.util.Computable;
 import com.nazarov.radman.message.AskParam;
 import com.nazarov.radman.util.ActionUtil;
 import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,6 @@ import java.util.List;
  * Action "Delete By Bitrate"
  * CAUTION: AnAction classes do not have class fields of any kind. This restriction prevents memory leaks.
  */
-
 public class DeleteByBitrate extends AnAction {
 
     @Override
@@ -64,8 +64,14 @@ public class DeleteByBitrate extends AnAction {
                         for (String s : details) {
                             if (s.contains("Bitrate")) {
                                 String bitRate = s.split(":")[1];
-                                if (bitRate != null) {
-                                    int rate = Integer.parseInt(bitRate);
+                                String cleanString = bitRate.trim();
+                                if (cleanString != null) {
+                                    int rate = 1;
+                                    try {
+                                        rate = Integer.parseInt(cleanString);
+                                    } catch (NumberFormatException nfe) {
+                                        nfe.printStackTrace();
+                                    }
                                     if (rate < askBitrate) {
                                         visualPositionList.add(v);
                                     }
